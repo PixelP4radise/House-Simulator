@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/sensors/movementSensor.h"
+
+std::string movementSensor::describe() const {
+    return getId() + " Movement Sensor ";// it needs to return the value of the property;
+}

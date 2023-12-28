@@ -19,12 +19,12 @@ std::string room::getId() const {
 }
 
 std::string room::describe() const {
-    for (auto &sensor: vectorSensors) {
-        // describe sensor
-    }
-    for (auto &device: vectorDevices) {
-        // describe device
-    }
+//    for (auto &sensor: vectorSensors) {
+//        // describe sensor
+//    }
+//    for (auto &device: vectorDevices) {
+//        // describe device
+//    }
     for (auto &processor: vectorProcessors) {
         // describe processor
     }

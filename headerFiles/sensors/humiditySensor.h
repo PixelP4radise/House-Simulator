@@ -10,6 +10,8 @@
 class humiditySensor : public sensor {
 private:
 public:
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

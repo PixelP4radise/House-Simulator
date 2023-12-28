@@ -7,7 +7,7 @@
 
 #include "./rule.h"
 
-class greaterThan {
+class greaterThan : public rule {
 
 };
 

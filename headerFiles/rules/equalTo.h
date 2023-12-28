@@ -7,7 +7,7 @@
 
 #include "./rule.h"
 
-class equalTo {
+class equalTo : public rule {
 
 };
 

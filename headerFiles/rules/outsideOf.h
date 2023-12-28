@@ -7,7 +7,7 @@
 
 #include "./rule.h"
 
-class outsideOf {
+class outsideOf : public rule {
 private:
     unsigned int secondParameter;
 public:

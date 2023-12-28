@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/sensors/humiditySensor.h"
+
+std::string humiditySensor::describe() const {
+    return getId() + " Humidity Sensor ";// it needs to return the value of the property;
+}

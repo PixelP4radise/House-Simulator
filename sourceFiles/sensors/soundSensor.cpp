@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/sensors/soundSensor.h"
+
+std::string soundSensor::describe() const {
+    return getId() + " Sound Sensor ";// it needs to return the value of the property;
+}

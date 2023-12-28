@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/sensors/smokeSensor.h"
+
+std::string smokeSensor::describe() const {
+    return getId() + " Smoke Sensor ";// it needs to return the value of the property;
+}

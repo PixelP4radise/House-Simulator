@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/sensors/temperatureSensor.h"
+
+std::string temperatureSensor::describe() const {
+    return getId() + " Temperature Sensor ";// it needs to return the value of the property;
+}

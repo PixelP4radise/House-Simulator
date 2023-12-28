@@ -16,6 +16,9 @@ private:
     std::vector<std::unique_ptr<rule>> vectorRules;
     std::string command; //comando para os portugues
     std::vector<std::weak_ptr<devices>> devicesOutput;
+public:
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

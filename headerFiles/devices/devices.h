@@ -5,9 +5,13 @@
 #ifndef HOUSE_SIMULATOR_DEVICES_H
 #define HOUSE_SIMULATOR_DEVICES_H
 
+#include "../houseElements.h"
 
-class devices {
-
+class devices : public houseElements {
+private:
+public:
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

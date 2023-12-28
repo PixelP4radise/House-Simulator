@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/sensors/radiationSensor.h"
+
+std::string radiationSensor::describe() const {
+    return getId() + " Radiation Sensor ";// it needs to return the value of the property;
+}

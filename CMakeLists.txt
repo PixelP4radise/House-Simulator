@@ -52,4 +52,20 @@ add_executable(House_Simulator main.cpp
         headerFiles/sensors/soundSensor.h
         sourceFiles/sensors/temperatureSensor.cpp
         headerFiles/sensors/temperatureSensor.h
-        exceptions/invalidPosition.h)
+        exceptions/invalidPosition.h
+        sourceFiles/propertys/property.cpp
+        headerFiles/propertys/property.h
+        sourceFiles/propertys/temperature.cpp
+        headerFiles/propertys/temperature.h
+        sourceFiles/propertys/movement.cpp
+        headerFiles/propertys/movement.h
+        sourceFiles/propertys/luminosity.cpp
+        headerFiles/propertys/luminosity.h
+        sourceFiles/propertys/radiation.cpp
+        headerFiles/propertys/radiation.h
+        sourceFiles/propertys/humidity.cpp
+        headerFiles/propertys/humidity.h
+        sourceFiles/propertys/sound.cpp
+        headerFiles/propertys/sound.h
+        sourceFiles/propertys/smoke.cpp
+        headerFiles/propertys/smoke.h)

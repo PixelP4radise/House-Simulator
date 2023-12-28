@@ -3,3 +3,7 @@
 //
 
 #include "../headerFiles/processor.h"
+
+std::string processor::describe() const {
+    return "p" + getId() + std::to_string(vectorRules.size());
+}
