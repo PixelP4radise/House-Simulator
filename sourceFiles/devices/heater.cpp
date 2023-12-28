@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/devices/heater.h"
+
+std::string heater::describe() const {
+    return getId() + "Heater";
+}

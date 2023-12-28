@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/devices/lamp.h"
+
+std::string lamp::describe() const {
+    return getId() + " Lamp";
+}

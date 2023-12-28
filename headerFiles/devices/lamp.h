@@ -8,7 +8,8 @@
 #include "devices.h"
 
 class lamp : public devices {
-
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

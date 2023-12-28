@@ -8,7 +8,10 @@
 #include "devices.h"
 
 class sprinkler : public devices {
-
+private:
+public:
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

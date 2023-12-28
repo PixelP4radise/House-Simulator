@@ -5,13 +5,16 @@
 #ifndef HOUSE_SIMULATOR_DEVICES_H
 #define HOUSE_SIMULATOR_DEVICES_H
 
+#include <iostream>
 #include "../houseElements.h"
 
 class devices : public houseElements {
 private:
+    bool state;
+    unsigned int turnedOnFor;
 public:
     [[nodiscard]]
-    std::string describe() const override;
+    std::string getId() const override;
 };
 
 

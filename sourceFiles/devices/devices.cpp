@@ -3,3 +3,7 @@
 //
 
 #include "../../headerFiles/devices/devices.h"
+
+std::string devices::getId() const {
+    return "d" + getNum();
+}
