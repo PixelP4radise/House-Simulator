@@ -16,10 +16,14 @@
 #include"./sensors/smokeSensor.h"
 #include"./sensors/soundSensor.h"
 #include"./sensors/temperatureSensor.h"
-#include "./devices/devices.h"
+#include "./devices/heater.h"
+#include "./devices/lamp.h"
+#include "./devices/refrigerator.h"
+#include "./devices/sprinkler.h"
 #include "./processor.h"
 #include "./propertys/property.h"
 #include "../exceptions/invalidSensorType.h"
+#include "../exceptions/invalidDeviceType.h"
 
 
 class room : public houseElements {
@@ -47,6 +51,8 @@ public:
     void addProcessor(std::string command);
 
     void addSensor(const std::string &property);
+
+    void addDevice(const std::string &device);
 };
 
 

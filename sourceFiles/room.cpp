@@ -61,3 +61,21 @@ void room::addSensor(const std::string &property) {
         std::cout << ex.what() << std::endl;
     }
 }
+
+void room::addDevice(const std::string &device) {
+    try {
+        std::shared_ptr<devices> ptr{};
+        if (device == "heater")
+            ptr = std::make_shared<heater>();
+        else if (device == "lamp")
+            ptr = std::make_shared<lamp>();
+        else if (device == "refrigerator")
+            ptr = std::make_shared<refrigerator>();
+        else if (device == "sprinkler")
+            ptr = std::make_shared<sprinkler>();
+        else
+            throw invalidDeviceType();
+    } catch (const invalidDeviceType &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

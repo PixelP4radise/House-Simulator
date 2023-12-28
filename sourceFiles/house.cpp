@@ -62,7 +62,7 @@ void house::newComponent(const std::string &id, char tipo, const std::string &co
             } else if (tipo == 'p') {
                 foundRoom->addProcessor(command);
             } else if (tipo == 'd') {
-//                foundRoom
+                foundRoom->addDevice(command);
             } else {
                 throw invalidDeviceType();
             }
