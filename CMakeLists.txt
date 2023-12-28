@@ -26,8 +26,8 @@ add_executable(House_Simulator main.cpp
         headerFiles/rules/lesserThan.h
         sourceFiles/rules/greaterThan.cpp
         headerFiles/rules/greaterThan.h
-        sourceFiles/rules/insideOf.cpp
-        headerFiles/rules/insideOf.h
+        sourceFiles/rules/within.cpp
+        headerFiles/rules/within.h
         sourceFiles/rules/outsideOf.cpp
         headerFiles/rules/outsideOf.h
         sourceFiles/devices/refrigerator.cpp

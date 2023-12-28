@@ -93,7 +93,7 @@ std::string room::showPropertys() const {
     std::string description{};
 
     for (const auto &[key, value]: roomPropertys) {
-        description += key + std::to_string(value->getValue());
+        description += key + ' ' + std::to_string(value->getValue()) + '\n';
     }
     return description;
 }

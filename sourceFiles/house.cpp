@@ -86,6 +86,20 @@ std::string house::describeRoom(const std::string &id) const {
             throw roomNotFound();
         }
     } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
+        return ex.what();
+    }
+}
+
+std::string house::showPropertysOfRoom(const std::string &id) const {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            return foundRoom->showPropertys();
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        return ex.what();
     }
 }

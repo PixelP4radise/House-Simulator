@@ -39,7 +39,11 @@ public:
 
     void newComponent(const std::string &id, char tipo, const std::string &command);
 
+    [[nodiscard]]
     std::string describeRoom(const std::string &id) const;
+
+    [[nodiscard]]
+    std::string showPropertysOfRoom(const std::string &id) const;
 };
 
 

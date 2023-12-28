@@ -4,6 +4,8 @@
 
 #include "../../headerFiles/propertys/property.h"
 
+property::property(int min, int max, int value) : min(min), max(max), value(value) {}
+
 int property::getValue() const {
     return value;
 }
