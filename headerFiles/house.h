@@ -30,6 +30,7 @@ public:
 
     void listRooms() const;
 
+
     [[nodiscard]]
     unsigned int getNLines() const;
 

@@ -5,8 +5,11 @@
 #ifndef HOUSE_SIMULATOR_MOVEMENTSENSOR_H
 #define HOUSE_SIMULATOR_MOVEMENTSENSOR_H
 
+#include "sensor.h"
 
-class movementSensor {
+class movementSensor : public sensor {
+private:
+public:
 
 };
 

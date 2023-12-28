@@ -18,6 +18,8 @@ public:
     std::string getNum() const;
 
     virtual std::string getId() const = 0;
+
+    virtual std::string describe() const = 0;
 };
 
 

@@ -5,8 +5,11 @@
 #ifndef HOUSE_SIMULATOR_LUMINOSITYSENSOR_H
 #define HOUSE_SIMULATOR_LUMINOSITYSENSOR_H
 
+#include "sensor.h"
 
-class luminositySensor {
+class luminositySensor : public sensor {
+private:
+public:
 
 };
 

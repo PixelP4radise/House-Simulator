@@ -29,6 +29,9 @@ public:
 
     [[nodiscard]]
     std::string getId() const override;
+
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

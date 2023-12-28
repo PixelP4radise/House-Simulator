@@ -5,9 +5,11 @@
 #ifndef HOUSE_SIMULATOR_TEMPERATURESENSOR_H
 #define HOUSE_SIMULATOR_TEMPERATURESENSOR_H
 
+#include "sensor.h"
 
-class temperatureSensor {
-
+class temperatureSensor : public sensor {
+private:
+public:
 };
 
 

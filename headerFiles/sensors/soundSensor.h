@@ -5,8 +5,11 @@
 #ifndef HOUSE_SIMULATOR_SOUNDSENSOR_H
 #define HOUSE_SIMULATOR_SOUNDSENSOR_H
 
+#include "sensor.h"
 
-class soundSensor {
+class soundSensor : public sensor {
+private:
+public:
 
 };
 

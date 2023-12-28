@@ -5,8 +5,11 @@
 #ifndef HOUSE_SIMULATOR_SMOKESENSOR_H
 #define HOUSE_SIMULATOR_SMOKESENSOR_H
 
+#include "sensor.h"
 
-class smokeSensor {
+class smokeSensor : public sensor {
+private:
+public:
 
 };
 
