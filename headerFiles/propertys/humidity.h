@@ -8,7 +8,8 @@
 #include "property.h"
 
 class humidity : public property {
-
+public:
+    humidity();
 };
 
 

@@ -8,7 +8,8 @@
 #include "property.h"
 
 class luminosity : public property {
-
+public:
+    luminosity();
 };
 
 

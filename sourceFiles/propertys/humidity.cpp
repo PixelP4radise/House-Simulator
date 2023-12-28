@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/propertys/humidity.h"
+
+humidity::humidity() : property(0, 100) {}

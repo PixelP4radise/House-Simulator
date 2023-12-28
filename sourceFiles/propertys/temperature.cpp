@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/propertys/temperature.h"
+
+temperature::temperature() : property(-273) {}

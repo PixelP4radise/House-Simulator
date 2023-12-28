@@ -8,7 +8,8 @@
 #include "property.h"
 
 class sound : public property {
-
+public:
+    sound();
 };
 
 

@@ -8,7 +8,8 @@
 #include "property.h"
 
 class smoke : public property {
-
+public:
+    smoke();
 };
 
 

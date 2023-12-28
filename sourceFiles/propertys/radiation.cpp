@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/propertys/radiation.h"
+
+radiation::radiation() : property(0) {}

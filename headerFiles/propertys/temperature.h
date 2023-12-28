@@ -8,7 +8,8 @@
 #include "property.h"
 
 class temperature : public property {
-
+public:
+    temperature();
 };
 
 

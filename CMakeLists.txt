@@ -57,8 +57,8 @@ add_executable(House_Simulator main.cpp
         headerFiles/propertys/property.h
         sourceFiles/propertys/temperature.cpp
         headerFiles/propertys/temperature.h
-        sourceFiles/propertys/movement.cpp
-        headerFiles/propertys/movement.h
+        sourceFiles/propertys/vibration.cpp
+        headerFiles/propertys/vibration.h
         sourceFiles/propertys/luminosity.cpp
         headerFiles/propertys/luminosity.h
         sourceFiles/propertys/radiation.cpp

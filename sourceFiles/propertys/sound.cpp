@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/propertys/sound.h"
+
+sound::sound() : property(0) {}

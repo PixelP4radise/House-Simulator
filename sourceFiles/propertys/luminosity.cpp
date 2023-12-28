@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/propertys/luminosity.h"
+
+luminosity::luminosity() : property(0) {}

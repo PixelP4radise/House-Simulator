@@ -4,7 +4,15 @@
 
 #include "../headerFiles/room.h"
 
-room::room(unsigned int nLines, unsigned int nCollumns) : nLines(nLines), nCollums(nCollumns) {}
+room::room(unsigned int nLines, unsigned int nCollumns) : nLines(nLines), nCollums(nCollumns) {
+    roomPropertys["temperature"] = std::make_unique<temperature>();
+    roomPropertys["light"] = std::make_unique<luminosity>();
+    roomPropertys["radiation"] = std::make_unique<radiation>();
+    roomPropertys["vibration"] = std::make_unique<vibration>();
+    roomPropertys["humidity"] = std::make_unique<humidity>();
+    roomPropertys["smoke"] = std::make_unique<smoke>();
+    roomPropertys["sound"] = std::make_unique<sound>();
+}
 
 unsigned int room::getNLines() const {
     return nLines;
@@ -44,7 +52,7 @@ void room::addSensor(const std::string &property) {
             ptr = std::make_unique<humiditySensor>();
         else if (property == "luminosity")
             ptr = std::make_unique<luminositySensor>();
-        else if (property == "movement")
+        else if (property == "vibration")
             ptr = std::make_unique<movementSensor>();
         else if (property == "radiation")
             ptr = std::make_unique<radiationSensor>();

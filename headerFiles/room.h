@@ -21,7 +21,13 @@
 #include "./devices/refrigerator.h"
 #include "./devices/sprinkler.h"
 #include "./processor.h"
-#include "./propertys/property.h"
+#include "./propertys/humidity.h"
+#include "./propertys/luminosity.h"
+#include "./propertys/vibration.h"
+#include "./propertys/radiation.h"
+#include "./propertys/smoke.h"
+#include "./propertys/sound.h"
+#include "./propertys/temperature.h"
 #include "../exceptions/invalidSensorType.h"
 #include "../exceptions/invalidDeviceType.h"
 
@@ -29,7 +35,7 @@
 class room : public houseElements {
 private:
     unsigned int nLines, nCollums;
-    std::vector<std::unique_ptr<sensor>> vectorSensors; //sensors for light, smoke, humidity, luminosity, movement, radiation, sound, temperature
+    std::vector<std::unique_ptr<sensor>> vectorSensors; //sensors for light, smoke, humidity, luminosity, vibration, radiation, sound, temperature
     std::vector<std::shared_ptr<devices>> vectorDevices; // contains fridges, heaters, lamps, sprinklers
     std::vector<std::shared_ptr<processor>> vectorProcessors;
     std::map<std::string, std::unique_ptr<property>> roomPropertys;

@@ -9,10 +9,21 @@
 
 class property {
 private:
-    size_t valor;
-    size_t max;
-    size_t min;
+    int value;
+    int max;
+    int min;
 public:
+
+    property(int min, int max = INT_MAX, int value = 0);
+
+    [[nodiscard]]
+    int getValue() const;
+
+    [[nodiscard]]
+    int getMax() const;
+
+    [[nodiscard]]
+    int getMin() const;
 };
 
 

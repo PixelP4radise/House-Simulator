@@ -3,3 +3,15 @@
 //
 
 #include "../../headerFiles/propertys/property.h"
+
+int property::getValue() const {
+    return value;
+}
+
+int property::getMax() const {
+    return max;
+}
+
+int property::getMin() const {
+    return min;
+}

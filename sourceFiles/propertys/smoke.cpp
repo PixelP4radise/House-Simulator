@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/propertys/smoke.h"
+
+smoke::smoke() : property(0, 100) {}
