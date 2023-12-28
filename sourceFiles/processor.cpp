@@ -11,5 +11,5 @@ std::string processor::getId() const {
 }
 
 std::string processor::describe() const {
-    return "p" + getId() + std::to_string(vectorRules.size());
+    return getId() + " processor " + std::to_string(vectorRules.size());
 }
