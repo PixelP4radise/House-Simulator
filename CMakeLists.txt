@@ -68,4 +68,5 @@ add_executable(House_Simulator main.cpp
         sourceFiles/propertys/sound.cpp
         headerFiles/propertys/sound.h
         sourceFiles/propertys/smoke.cpp
-        headerFiles/propertys/smoke.h)
+        headerFiles/propertys/smoke.h
+        exceptions/invalidDeviceType.h)
