@@ -11,4 +11,44 @@ add_executable(House_Simulator main.cpp
         exceptions/positionOcuppied.h
         sourceFiles/houseElements.cpp
         headerFiles/houseElements.h
-        exceptions/roomNotFound.h)
+        exceptions/roomNotFound.h
+        sourceFiles/sensors/sensor.cpp
+        headerFiles/sensors/sensor.h
+        sourceFiles/devices/devices.cpp
+        headerFiles/devices/devices.h
+        sourceFiles/processor.cpp
+        headerFiles/processor.h
+        sourceFiles/rules/rule.cpp
+        headerFiles/rules/rule.h
+        sourceFiles/rules/equalTo.cpp
+        headerFiles/rules/equalTo.h
+        sourceFiles/rules/lesserThan.cpp
+        headerFiles/rules/lesserThan.h
+        sourceFiles/rules/greaterThan.cpp
+        headerFiles/rules/greaterThan.h
+        sourceFiles/rules/insideOf.cpp
+        headerFiles/rules/insideOf.h
+        sourceFiles/rules/outsideOf.cpp
+        headerFiles/rules/outsideOf.h
+        sourceFiles/devices/refrigerator.cpp
+        headerFiles/devices/refrigerator.h
+        sourceFiles/devices/heater.cpp
+        headerFiles/devices/heater.h
+        sourceFiles/devices/sprinkler.cpp
+        headerFiles/devices/sprinkler.h
+        sourceFiles/devices/lamp.cpp
+        headerFiles/devices/lamp.h
+        sourceFiles/sensors/smokeSensor.cpp
+        headerFiles/sensors/smokeSensor.h
+        sourceFiles/sensors/humiditySensor.cpp
+        headerFiles/sensors/humiditySensor.h
+        sourceFiles/sensors/luminositySensor.cpp
+        headerFiles/sensors/luminositySensor.h
+        sourceFiles/sensors/movementSensor.cpp
+        headerFiles/sensors/movementSensor.h
+        sourceFiles/sensors/radiationSensor.cpp
+        headerFiles/sensors/radiationSensor.h
+        sourceFiles/sensors/soundSensor.cpp
+        headerFiles/sensors/soundSensor.h
+        sourceFiles/sensors/temperatureSensor.cpp
+        headerFiles/sensors/temperatureSensor.h)
