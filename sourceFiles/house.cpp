@@ -25,7 +25,7 @@ void house::newRoom(unsigned int roomNlines, unsigned int roomNCollums) {
     }
 }
 
-void house::deleteRoom(std::string &id) {
+void house::deleteRoom(const std::string &id) {
     auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
     try {
         if (it != houseRooms.end()) {
@@ -51,3 +51,28 @@ unsigned int house::getNLines() const {
 unsigned int house::getNCollums() const {
     return nCollums;
 }
+
+void house::newComponent(const std::string &id, char tipo, const std::string &command) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            if (tipo == 's') {
+                foundRoom->addSensor(command);
+            } else if (tipo == 'p') {
+                foundRoom->addProcessor(command);
+            } else if (tipo == 'd') {
+//                foundRoom
+            } else {
+                throw invalidDeviceType();
+            }
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const invalidDeviceType &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+

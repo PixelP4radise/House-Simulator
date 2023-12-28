@@ -4,6 +4,12 @@
 
 #include "../headerFiles/processor.h"
 
+processor::processor(std::string command) : command(std::move(command)) {}
+
+std::string processor::getId() const {
+    return "p" + getNum();
+}
+
 std::string processor::describe() const {
     return "p" + getId() + std::to_string(vectorRules.size());
 }

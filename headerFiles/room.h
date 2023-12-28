@@ -9,7 +9,13 @@
 #include <memory>
 #include <map>
 #include "houseElements.h"
-#include "./sensors/sensor.h"
+#include"./sensors/humiditySensor.h"
+#include"./sensors/luminositySensor.h"
+#include"./sensors/movementSensor.h"
+#include"./sensors/radiationSensor.h"
+#include"./sensors/smokeSensor.h"
+#include"./sensors/soundSensor.h"
+#include"./sensors/temperatureSensor.h"
 #include "./devices/devices.h"
 #include "./processor.h"
 #include "./propertys/property.h"
@@ -35,6 +41,10 @@ public:
 
     [[nodiscard]]
     std::string describe() const override;
+
+    void addProcessor(std::string command);
+
+    void addSensor(const std::string &property);
 };
 
 

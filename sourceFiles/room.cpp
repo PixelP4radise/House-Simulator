@@ -19,6 +19,7 @@ std::string room::getId() const {
 }
 
 std::string room::describe() const {
+    std::string description{};
 //    for (auto &sensor: vectorSensors) {
 //        // describe sensor
 //    }
@@ -26,6 +27,31 @@ std::string room::describe() const {
 //        // describe device
 //    }
     for (auto &processor: vectorProcessors) {
-        // describe processor
+        description += processor->describe();
     }
+    return description;
+}
+
+void room::addProcessor(std::string command) {
+    std::shared_ptr<processor> ptr = std::make_shared<processor>(std::move(command));
+    vectorProcessors.push_back(std::move(ptr));
+}
+
+void room::addSensor(const std::string &property) {
+    std::unique_ptr<sensor> ptr{};
+    if (property == "humidity")
+        ptr = std::make_unique<humiditySensor>();
+    if (property == "luminosity")
+        ptr = std::make_unique<luminositySensor>();
+    if (property == "movement")
+        ptr = std::make_unique<movementSensor>();
+    if (property == "radiation")
+        ptr = std::make_unique<radiationSensor>();
+    if (property == "smoke")
+        ptr = std::make_unique<smokeSensor>();
+    if (property == "sound")
+        ptr = std::make_unique<soundSensor>();
+    if (property == "temperature")
+        ptr = std::make_unique<temperatureSensor>();
+    vectorSensors.push_back(std::move(ptr));
 }

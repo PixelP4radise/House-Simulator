@@ -17,6 +17,13 @@ private:
     std::string command; //comando para os portugues
     std::vector<std::weak_ptr<devices>> devicesOutput;
 public:
+    explicit processor(std::string command);
+
+    ~processor() override = default;
+
+    [[nodiscard]]
+    std::string getId() const override;
+
     [[nodiscard]]
     std::string describe() const override;
 };

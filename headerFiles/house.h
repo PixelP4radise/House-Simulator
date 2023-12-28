@@ -13,6 +13,7 @@
 #include "../exceptions/positionOcuppied.h"
 #include "../exceptions/roomNotFound.h"
 #include "../exceptions/invalidPosition.h"
+#include "../exceptions/invalidDeviceType.h"
 
 class house {
 private:
@@ -26,7 +27,7 @@ public:
 
     void newRoom(unsigned int roomNlines, unsigned int roomNCollums);
 
-    void deleteRoom(std::string &id);
+    void deleteRoom(const std::string &id);
 
     void listRooms() const;
 
@@ -36,6 +37,8 @@ public:
 
     [[nodiscard]]
     unsigned int getNCollums() const;
+
+    void newComponent(const std::string &id, char tipo, const std::string &command);
 };
 
 
