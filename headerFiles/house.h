@@ -31,7 +31,6 @@ public:
 
     void listRooms() const;
 
-
     [[nodiscard]]
     unsigned int getNLines() const;
 
@@ -39,6 +38,8 @@ public:
     unsigned int getNCollums() const;
 
     void newComponent(const std::string &id, char tipo, const std::string &command);
+
+    std::string describeRoom(const std::string &id) const;
 };
 
 

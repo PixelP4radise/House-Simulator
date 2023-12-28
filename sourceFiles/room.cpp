@@ -38,20 +38,26 @@ void room::addProcessor(std::string command) {
 }
 
 void room::addSensor(const std::string &property) {
-    std::unique_ptr<sensor> ptr{};
-    if (property == "humidity")
-        ptr = std::make_unique<humiditySensor>();
-    if (property == "luminosity")
-        ptr = std::make_unique<luminositySensor>();
-    if (property == "movement")
-        ptr = std::make_unique<movementSensor>();
-    if (property == "radiation")
-        ptr = std::make_unique<radiationSensor>();
-    if (property == "smoke")
-        ptr = std::make_unique<smokeSensor>();
-    if (property == "sound")
-        ptr = std::make_unique<soundSensor>();
-    if (property == "temperature")
-        ptr = std::make_unique<temperatureSensor>();
-    vectorSensors.push_back(std::move(ptr));
+    try {
+        std::unique_ptr<sensor> ptr{};
+        if (property == "humidity")
+            ptr = std::make_unique<humiditySensor>();
+        else if (property == "luminosity")
+            ptr = std::make_unique<luminositySensor>();
+        else if (property == "movement")
+            ptr = std::make_unique<movementSensor>();
+        else if (property == "radiation")
+            ptr = std::make_unique<radiationSensor>();
+        else if (property == "smoke")
+            ptr = std::make_unique<smokeSensor>();
+        else if (property == "sound")
+            ptr = std::make_unique<soundSensor>();
+        else if (property == "temperature")
+            ptr = std::make_unique<temperatureSensor>();
+        else
+            throw invalidSensorType();
+        vectorSensors.push_back(std::move(ptr));
+    } catch (const invalidSensorType &ex) {
+        std::cout << ex.what() << std::endl;
+    }
 }

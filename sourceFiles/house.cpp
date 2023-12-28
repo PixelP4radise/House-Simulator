@@ -76,3 +76,16 @@ void house::newComponent(const std::string &id, char tipo, const std::string &co
     }
 }
 
+std::string house::describeRoom(const std::string &id) const {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            return foundRoom->describe();
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

@@ -19,6 +19,8 @@
 #include "./devices/devices.h"
 #include "./processor.h"
 #include "./propertys/property.h"
+#include "../exceptions/invalidSensorType.h"
+
 
 class room : public houseElements {
 private:
