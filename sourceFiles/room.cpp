@@ -21,13 +21,13 @@ std::string room::getId() const {
 std::string room::describe() const {
     std::string description{};
     for (auto &sensor: vectorSensors) {
-        description += sensor->describe();
+        description += sensor->describe() + '\n';
     }
     for (auto &device: vectorDevices) {
-        description += device->describe();
+        description += device->describe() + '\n';
     }
     for (auto &processor: vectorProcessors) {
-        description += processor->describe();
+        description += processor->describe() + '\n';
     }
     return description;
 }
