@@ -6,6 +6,7 @@
 #define HOUSE_SIMULATOR_HOUSEELEMENTS_H
 
 #include <iostream>
+#include <memory>
 
 class houseElements {
 private:

@@ -38,7 +38,7 @@ private:
     std::vector<std::unique_ptr<sensor>> vectorSensors; //sensors for light, smoke, humidity, luminosity, vibration, radiation, sound, temperature
     std::vector<std::shared_ptr<devices>> vectorDevices; // contains fridges, heaters, lamps, sprinklers
     std::vector<std::shared_ptr<processor>> vectorProcessors;
-    std::map<std::string, std::unique_ptr<property>> roomPropertys;
+    std::map<std::string, std::shared_ptr<property>> roomPropertys;
 public:
     room(unsigned int nLines, unsigned int nCollumns);
 

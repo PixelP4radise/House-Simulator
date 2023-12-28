@@ -5,13 +5,13 @@
 #include "../headerFiles/room.h"
 
 room::room(unsigned int nLines, unsigned int nCollumns) : nLines(nLines), nCollums(nCollumns) {
-    roomPropertys["temperature"] = std::make_unique<temperature>();
-    roomPropertys["light"] = std::make_unique<luminosity>();
-    roomPropertys["radiation"] = std::make_unique<radiation>();
-    roomPropertys["vibration"] = std::make_unique<vibration>();
-    roomPropertys["humidity"] = std::make_unique<humidity>();
-    roomPropertys["smoke"] = std::make_unique<smoke>();
-    roomPropertys["sound"] = std::make_unique<sound>();
+    roomPropertys["temperature"] = std::make_shared<temperature>();
+    roomPropertys["light"] = std::make_shared<luminosity>();
+    roomPropertys["radiation"] = std::make_shared<radiation>();
+    roomPropertys["vibration"] = std::make_shared<vibration>();
+    roomPropertys["humidity"] = std::make_shared<humidity>();
+    roomPropertys["smoke"] = std::make_shared<smoke>();
+    roomPropertys["sound"] = std::make_shared<sound>();
 }
 
 unsigned int room::getNLines() const {

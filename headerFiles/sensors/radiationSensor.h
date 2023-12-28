@@ -10,6 +10,8 @@
 class radiationSensor : public sensor {
 private:
 public:
+    radiationSensor();
+
     [[nodiscard]]
     std::string describe() const override;
 };
