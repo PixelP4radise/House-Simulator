@@ -88,3 +88,12 @@ void room::addDevice(const std::string &device) {
         std::cout << ex.what() << std::endl;
     }
 }
+
+std::string room::showPropertys() const {
+    std::string description{};
+
+    for (const auto &[key, value]: roomPropertys) {
+        description += key + std::to_string(value->getValue());
+    }
+    return description;
+}

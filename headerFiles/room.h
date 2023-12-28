@@ -59,6 +59,9 @@ public:
     void addSensor(const std::string &property);
 
     void addDevice(const std::string &device);
+
+    [[nodiscard]]
+    std::string showPropertys() const;
 };
 
 
