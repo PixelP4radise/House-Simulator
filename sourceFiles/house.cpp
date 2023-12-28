@@ -6,17 +6,22 @@
 
 house::house(unsigned int nLines, unsigned int nCollums) : nLines(nLines), nCollums(nCollums) {}
 
-void house::newRoom(unsigned int nLines, unsigned int nCollums) {
+void house::newRoom(unsigned int roomNlines, unsigned int roomNCollums) {
     try {
         for (auto &room: houseRooms)
-            if (room->getNLines() == nLines)
-                if (room->getNCollums() == nCollums)
+            if (room->getNLines() == roomNlines)
+                if (room->getNCollums() == roomNCollums)
                     throw positionOcuppied();
-        std::unique_ptr<room> ptr = std::make_unique<room>(nLines, nCollums);
+        if (roomNlines > getNLines())
+            if (roomNCollums > getNCollums())
+                throw invalidPosition();
+        std::unique_ptr<room> ptr = std::make_unique<room>(roomNlines, roomNCollums);
         houseRooms.push_back(std::move(ptr));
     } catch (const std::bad_alloc &ex) {
         std::cout << "Couldn't allocate." << std::endl;
     } catch (const positionOcuppied &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const invalidPosition &ex) {
         std::cout << ex.what() << std::endl;
     }
 }
@@ -38,4 +43,12 @@ void house::listRooms() const {
     for (auto &room: houseRooms) {
         std::cout << room->getId() << std::endl;
     }
+}
+
+unsigned int house::getNLines() const {
+    return nLines;
+}
+
+unsigned int house::getNCollums() const {
+    return nCollums;
 }

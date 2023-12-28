@@ -12,6 +12,7 @@
 #include "room.h"
 #include "../exceptions/positionOcuppied.h"
 #include "../exceptions/roomNotFound.h"
+#include "../exceptions/invalidPosition.h"
 
 class house {
 private:
@@ -23,11 +24,17 @@ public:
 
     ~house() = default;
 
-    void newRoom(unsigned int nLines, unsigned int nCollums);
+    void newRoom(unsigned int roomNlines, unsigned int roomNCollums);
 
     void deleteRoom(std::string &id);
 
     void listRooms() const;
+
+    [[nodiscard]]
+    unsigned int getNLines() const;
+
+    [[nodiscard]]
+    unsigned int getNCollums() const;
 };
 
 
