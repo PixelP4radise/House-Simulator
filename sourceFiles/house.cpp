@@ -12,9 +12,8 @@ void house::newRoom(unsigned int roomNlines, unsigned int roomNCollums) {
             if (room->getNLines() == roomNlines)
                 if (room->getNCollums() == roomNCollums)
                     throw positionOcuppied();
-        if (roomNlines > getNLines())
-            if (roomNCollums > getNCollums())
-                throw invalidPosition();
+        if (roomNlines > getNLines() or roomNCollums > getNCollums())
+            throw invalidPosition();
         std::unique_ptr<room> ptr = std::make_unique<room>(roomNlines, roomNCollums);
         houseRooms.push_back(std::move(ptr));
     } catch (const std::bad_alloc &ex) {

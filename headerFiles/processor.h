@@ -9,10 +9,11 @@
 #include <memory>
 #include "./houseElements.h"
 #include "./devices/devices.h"
+#include "./rules/rule.h"
 
 class processor : public houseElements {
 private:
-    std::vector<std::unique_ptr<rules>> vectorRules;
+    std::vector<std::unique_ptr<rule>> vectorRules;
     std::string command; //comando para os portugues
     std::vector<std::weak_ptr<devices>> devicesOutput;
 };
