@@ -20,12 +20,12 @@ std::string room::getId() const {
 
 std::string room::describe() const {
     std::string description{};
-//    for (auto &sensor: vectorSensors) {
-//        // describe sensor
-//    }
-//    for (auto &device: vectorDevices) {
-//        // describe device
-//    }
+    for (auto &sensor: vectorSensors) {
+        description += sensor->describe();
+    }
+    for (auto &device: vectorDevices) {
+        description += device->describe();
+    }
     for (auto &processor: vectorProcessors) {
         description += processor->describe();
     }
@@ -75,6 +75,7 @@ void room::addDevice(const std::string &device) {
             ptr = std::make_shared<sprinkler>();
         else
             throw invalidDeviceType();
+        vectorDevices.push_back(std::move(ptr));
     } catch (const invalidDeviceType &ex) {
         std::cout << ex.what() << std::endl;
     }
