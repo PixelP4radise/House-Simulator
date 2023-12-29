@@ -10,3 +10,10 @@ rule::rule(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : detector(
 std::string rule::getId() const {
     return "r" + getNum();
 }
+
+std::string rule::describeSensor() const {
+    auto sensor = detector.lock();
+    if (sensor)
+        return sensor->describe();
+    //mandar o throw caso ele nao de lock
+}

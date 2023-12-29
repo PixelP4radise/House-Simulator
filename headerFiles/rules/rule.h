@@ -23,10 +23,13 @@ private:
 public:
     explicit rule(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    [[nodiscard]]
+    std::string getId() const override;
+
     virtual void evaluate() = 0;
 
     [[nodiscard]]
-    std::string getId() const override;
+    std::string describeSensor() const;
 };
 
 
