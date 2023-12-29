@@ -52,16 +52,16 @@ unsigned int house::getNCollums() const {
     return nCollums;
 }
 
-void house::newComponent(const std::string &id, char tipo, const std::string &command) {
+void house::newComponent(const std::string &id, char type, const std::string &command) {
     auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
     try {
         if (it != houseRooms.end()) {
             auto &foundRoom = *it;
-            if (tipo == 's') {
+            if (type == 's') {
                 foundRoom->addSensor(command);
-            } else if (tipo == 'p') {
+            } else if (type == 'p') {
                 foundRoom->addProcessor(command);
-            } else if (tipo == 'd') {
+            } else if (type == 'd') {
                 foundRoom->addDevice(command);
             } else {
                 throw invalidDeviceType();
@@ -72,6 +72,28 @@ void house::newComponent(const std::string &id, char tipo, const std::string &co
     } catch (const roomNotFound &ex) {
         std::cout << ex.what() << std::endl;
     } catch (const invalidDeviceType &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void house::removeComponent(const std::string &idOfRoom, char type, const std::string &idOfComponent) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(),
+                           [idOfRoom](const auto &obj) { return obj->getId() == idOfRoom; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            if (type == 's')
+                foundRoom->removeSensor(idOfComponent);
+            else if (type == 'p')
+                foundRoom->removeProcessor(idOfComponent);
+            else if (type == 'd')
+                foundRoom->removeDevice(idOfComponent);
+            else
+                throw invalidDeviceType();
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
 }
@@ -101,5 +123,19 @@ std::string house::showPropertysOfRoom(const std::string &id) const {
         }
     } catch (const roomNotFound &ex) {
         return ex.what();
+    }
+}
+
+void house::changePropertyOfRoom(const std::string &id, const std::string &propertyTobeChanged, int valueToBe) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            foundRoom->changeProperty(propertyTobeChanged, valueToBe);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
     }
 }

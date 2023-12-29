@@ -37,13 +37,17 @@ public:
     [[nodiscard]]
     unsigned int getNCollums() const;
 
-    void newComponent(const std::string &id, char tipo, const std::string &command);
+    void newComponent(const std::string &id, char type, const std::string &command);
+
+    void removeComponent(const std::string &idOfRoom, char type, const std::string &idOfComponent);
 
     [[nodiscard]]
     std::string describeRoom(const std::string &id) const;
 
     [[nodiscard]]
     std::string showPropertysOfRoom(const std::string &id) const;
+
+    void changePropertyOfRoom(const std::string &id, const std::string &propertyTobeChanged, int valueToBe);
 };
 
 

@@ -45,27 +45,57 @@ void room::addProcessor(std::string command) {
     vectorProcessors.push_back(std::move(ptr));
 }
 
+void room::removeProcessor(const std::string &idOfComponent) {
+    auto it = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                           [idOfComponent](const auto &obj) { return obj->getId() == idOfComponent; });
+    try {
+
+        if (it != vectorProcessors.end())
+            vectorProcessors.erase(it);
+        else
+            throw processorNotFound();
+
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
 void room::addSensor(const std::string &property) {
     try {
         std::unique_ptr<sensor> ptr{};
         if (property == "humidity")
-            ptr = std::make_unique<humiditySensor>();
+            ptr = std::make_unique<humiditySensor>(roomPropertys.at("humidity"));
         else if (property == "luminosity")
-            ptr = std::make_unique<luminositySensor>();
+            ptr = std::make_unique<luminositySensor>(roomPropertys.at("light"));
         else if (property == "vibration")
-            ptr = std::make_unique<movementSensor>();
+            ptr = std::make_unique<movementSensor>(roomPropertys.at("vibration"));
         else if (property == "radiation")
-            ptr = std::make_unique<radiationSensor>();
+            ptr = std::make_unique<radiationSensor>(roomPropertys.at("radiation"));
         else if (property == "smoke")
-            ptr = std::make_unique<smokeSensor>();
+            ptr = std::make_unique<smokeSensor>(roomPropertys.at("smoke"));
         else if (property == "sound")
-            ptr = std::make_unique<soundSensor>();
+            ptr = std::make_unique<soundSensor>(roomPropertys.at("sound"));
         else if (property == "temperature")
-            ptr = std::make_unique<temperatureSensor>();
+            ptr = std::make_unique<temperatureSensor>(roomPropertys.at("temperature"));
         else
             throw invalidSensorType();
         vectorSensors.push_back(std::move(ptr));
     } catch (const invalidSensorType &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void room::removeSensor(const std::string &idOfComponent) {
+    auto it = std::find_if(vectorSensors.begin(), vectorSensors.end(),
+                           [idOfComponent](const auto &obj) { return obj->getId() == idOfComponent; });
+    try {
+
+        if (it != vectorSensors.end())
+            vectorSensors.erase(it);
+        else
+            throw processorNotFound();
+
+    } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
 }
@@ -89,6 +119,21 @@ void room::addDevice(const std::string &device) {
     }
 }
 
+void room::removeDevice(const std::string &idOfComponent) {
+    auto it = std::find_if(vectorDevices.begin(), vectorDevices.end(),
+                           [idOfComponent](const auto &obj) { return obj->getId() == idOfComponent; });
+    try {
+
+        if (it != vectorDevices.end())
+            vectorDevices.erase(it);
+        else
+            throw processorNotFound();
+
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
 std::string room::showPropertys() const {
     std::string description{};
 
@@ -96,4 +141,8 @@ std::string room::showPropertys() const {
         description += key + ' ' + std::to_string(value->getValue()) + '\n';
     }
     return description;
+}
+
+void room::changeProperty(const std::string &propertyTobeChanged, int valueToBe) {
+    roomPropertys.at(propertyTobeChanged)->setValue(valueToBe);
 }

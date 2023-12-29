@@ -8,6 +8,7 @@
 #include <vector>
 #include <memory>
 #include <map>
+#include <algorithm>
 #include "houseElements.h"
 #include"./sensors/humiditySensor.h"
 #include"./sensors/luminositySensor.h"
@@ -30,6 +31,7 @@
 #include "./propertys/temperature.h"
 #include "../exceptions/invalidSensorType.h"
 #include "../exceptions/invalidDeviceType.h"
+#include "../exceptions/processorNotFound.h"
 
 
 class room : public houseElements {
@@ -56,12 +58,20 @@ public:
 
     void addProcessor(std::string command);
 
+    void removeProcessor(const std::string &idOfComponent);
+
     void addSensor(const std::string &property);
+
+    void removeSensor(const std::string &idOfComponent);
 
     void addDevice(const std::string &device);
 
+    void removeDevice(const std::string &idOfComponent);
+
     [[nodiscard]]
     std::string showPropertys() const;
+
+    void changeProperty(const std::string &propertyTobeChanged, int valueToBe);
 };
 
 
