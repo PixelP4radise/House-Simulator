@@ -3,3 +3,5 @@
 //
 
 #include "../../headerFiles/rules/equalTo.h"
+
+equalTo::equalTo(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : rule(sensorPtr, parameter1) {}

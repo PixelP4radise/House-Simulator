@@ -11,6 +11,13 @@ class outsideOf : public rule {
 private:
     unsigned int secondParameter;
 public:
+
+    explicit outsideOf(const std::shared_ptr<sensor> &sensorPtr, int parameter1, int parameter2);
+
+    void evaluate() override;
+
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

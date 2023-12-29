@@ -8,7 +8,13 @@
 #include "./rule.h"
 
 class lesserThan : public rule {
+public:
+    explicit lesserThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    void evaluate() override;
+
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

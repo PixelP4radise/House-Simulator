@@ -8,7 +8,13 @@
 #include "./rule.h"
 
 class equalTo : public rule {
+public:
+    explicit equalTo(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    void evaluate() override;
+
+    [[nodiscard]]
+    std::string describe() const override;
 };
 
 

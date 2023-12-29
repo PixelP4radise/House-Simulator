@@ -9,7 +9,12 @@
 #include <memory>
 #include "./houseElements.h"
 #include "./devices/devices.h"
-#include "./rules/rule.h"
+#include "./rules/equalTo.h"
+#include "./rules/greaterThan.h"
+#include "./rules/lesserThan.h"
+#include "./rules/outsideOf.h"
+#include "./rules/within.h"
+#include "../exceptions/unknowRule.h"
 
 class processor : public houseElements {
 private:
@@ -26,6 +31,10 @@ public:
 
     [[nodiscard]]
     std::string describe() const override;
+
+    void addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &type, int parameter1);
+
+    void addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &type, int parameter1, int parameter2);
 };
 
 
