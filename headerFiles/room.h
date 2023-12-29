@@ -32,12 +32,13 @@
 #include "../exceptions/invalidSensorType.h"
 #include "../exceptions/invalidDeviceType.h"
 #include "../exceptions/processorNotFound.h"
+#include "../exceptions/sensorNotFound.h"
 
 
 class room : public houseElements {
 private:
     unsigned int nLines, nCollums;
-    std::vector<std::unique_ptr<sensor>> vectorSensors; //sensors for light, smoke, humidity, luminosity, vibration, radiation, sound, temperature
+    std::vector<std::shared_ptr<sensor>> vectorSensors; //sensors for light, smoke, humidity, luminosity, vibration, radiation, sound, temperature
     std::vector<std::shared_ptr<devices>> vectorDevices; // contains fridges, heaters, lamps, sprinklers
     std::vector<std::shared_ptr<processor>> vectorProcessors;
     std::map<std::string, std::shared_ptr<property>> roomPropertys;
@@ -72,6 +73,12 @@ public:
     std::string showPropertys() const;
 
     void changeProperty(const std::string &propertyTobeChanged, int valueToBe);
+
+    void addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
+                 int parameter1);
+
+    void addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
+                 int parameter1, int parameter2);
 };
 
 

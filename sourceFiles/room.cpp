@@ -62,21 +62,21 @@ void room::removeProcessor(const std::string &idOfComponent) {
 
 void room::addSensor(const std::string &property) {
     try {
-        std::unique_ptr<sensor> ptr{};
+        std::shared_ptr<sensor> ptr{};
         if (property == "humidity")
-            ptr = std::make_unique<humiditySensor>(roomPropertys.at("humidity"));
+            ptr = std::make_shared<humiditySensor>(roomPropertys.at("humidity"));
         else if (property == "luminosity")
-            ptr = std::make_unique<luminositySensor>(roomPropertys.at("light"));
+            ptr = std::make_shared<luminositySensor>(roomPropertys.at("light"));
         else if (property == "vibration")
-            ptr = std::make_unique<movementSensor>(roomPropertys.at("vibration"));
+            ptr = std::make_shared<movementSensor>(roomPropertys.at("vibration"));
         else if (property == "radiation")
-            ptr = std::make_unique<radiationSensor>(roomPropertys.at("radiation"));
+            ptr = std::make_shared<radiationSensor>(roomPropertys.at("radiation"));
         else if (property == "smoke")
-            ptr = std::make_unique<smokeSensor>(roomPropertys.at("smoke"));
+            ptr = std::make_shared<smokeSensor>(roomPropertys.at("smoke"));
         else if (property == "sound")
-            ptr = std::make_unique<soundSensor>(roomPropertys.at("sound"));
+            ptr = std::make_shared<soundSensor>(roomPropertys.at("sound"));
         else if (property == "temperature")
-            ptr = std::make_unique<temperatureSensor>(roomPropertys.at("temperature"));
+            ptr = std::make_shared<temperatureSensor>(roomPropertys.at("temperature"));
         else
             throw invalidSensorType();
         vectorSensors.push_back(std::move(ptr));
@@ -145,4 +145,54 @@ std::string room::showPropertys() const {
 
 void room::changeProperty(const std::string &propertyTobeChanged, int valueToBe) {
     roomPropertys.at(propertyTobeChanged)->setValue(valueToBe);
+}
+
+void
+room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1) {
+    auto processadorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                      [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
+                                 [idSensor](const auto &obj) { return obj->getId() == idSensor; });
+    try {
+        if (processadorIt != vectorProcessors.end()) {
+            if (sensorIt != vectorSensors.end()) {
+                auto &processor = *processadorIt;
+                auto &sensor = *sensorIt;
+                processor->addRule(sensor, type, parameter1);
+            } else {
+                throw sensorNotFound();
+            }
+        } else {
+            throw processorNotFound();
+        }
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const sensorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1,
+                   int parameter2) {
+    auto processadorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                      [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
+                                 [idSensor](const auto &obj) { return obj->getId() == idSensor; });
+    try {
+        if (processadorIt != vectorProcessors.end()) {
+            if (sensorIt != vectorSensors.end()) {
+                auto &processor = *processadorIt;
+                auto &sensor = *sensorIt;
+                processor->addRule(sensor, type, parameter1, parameter2);
+            } else {
+                throw sensorNotFound();
+            }
+        } else {
+            throw processorNotFound();
+        }
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const sensorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
 }
