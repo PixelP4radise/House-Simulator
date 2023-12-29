@@ -72,4 +72,6 @@ add_executable(House_Simulator main.cpp
         exceptions/invalidDeviceType.h
         exceptions/invalidSensorType.h
         exceptions/outOfRangeProperty.h
-        exceptions/processorNotFound.h)
+        exceptions/processorNotFound.h
+        exceptions/unknowRule.h
+)
