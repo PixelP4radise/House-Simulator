@@ -35,6 +35,8 @@ public:
     void addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &type, int parameter1);
 
     void addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &type, int parameter1, int parameter2);
+
+    
 };
 
 

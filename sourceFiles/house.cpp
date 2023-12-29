@@ -139,3 +139,36 @@ void house::changePropertyOfRoom(const std::string &id, const std::string &prope
         std::cout << ex.what() << std::endl;
     }
 }
+
+void
+house::addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor,
+               const std::string &type, int parameter1) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            foundRoom->addRule(idProcessor, idSensor, type, parameter1);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void
+house::addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor,
+               const std::string &type, int parameter1,
+               int parameter2) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            foundRoom->addRule(idProcessor, idSensor, type, parameter1, parameter2);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
