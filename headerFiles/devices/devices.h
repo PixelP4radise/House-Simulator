@@ -10,7 +10,7 @@
 
 class devices : public houseElements {
 private:
-    bool state;
+    std::string comando;
     unsigned int turnedOnFor;
 public:
     [[nodiscard]]

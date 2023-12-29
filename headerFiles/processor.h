@@ -21,8 +21,8 @@
 class processor : public houseElements {
 private:
     std::vector<std::unique_ptr<rule>> vectorRules;
-    std::string command; //comando para os portugues
-    std::vector<std::weak_ptr<devices>> devicesOutput;
+    std::string command;
+    std::vector<std::weak_ptr<devices>> processorOutput;
 public:
     explicit processor(std::string command);
 
@@ -43,6 +43,8 @@ public:
     void setCommand(const std::string &newCommand);
 
     void showRules();
+
+    void associateDevice(const std::shared_ptr<devices> &toBeAsoc);
 };
 
 

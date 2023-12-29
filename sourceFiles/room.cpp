@@ -244,3 +244,23 @@ void room::showRulesFrom(const std::string &idProcessor) {
         std::cout << ex.what() << std::endl;
     }
 }
+
+void room::asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) {
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    auto deviceIt = std::find_if(vectorDevices.begin(), vectorDevices.end(),
+                                 [idDevice](const auto &obj) { return obj->getId() == idDevice; });
+    try {
+        if (processorIt == vectorProcessors.end())
+            throw processorNotFound();
+        if (deviceIt == vectorDevices.end())
+            throw deviceNotFound();
+        auto &processor = *processorIt;
+        auto &device = *deviceIt;
+        processor->associateDevice(device);
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const deviceNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

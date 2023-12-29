@@ -70,3 +70,8 @@ void processor::showRules() {
         std::cout << rule->describe() << std::endl;
     }
 }
+
+void processor::associateDevice(const std::shared_ptr<devices> &toBeAsoc) {
+    std::weak_ptr<devices> weakPtr = toBeAsoc;
+    processorOutput.push_back(weakPtr);
+}

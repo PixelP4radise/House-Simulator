@@ -63,6 +63,8 @@ public:
     void changeCommand(const std::string &id, const std::string &idProcessor, const std::string &newCommand);
 
     void showRulesFrom(const std::string &id, const std::string &idProcessor);
+
+    void associateDeviceToProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice);
 };
 
 

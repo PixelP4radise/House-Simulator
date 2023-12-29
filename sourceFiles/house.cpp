@@ -215,3 +215,18 @@ void house::showRulesFrom(const std::string &id, const std::string &idProcessor)
         std::cout << ex.what() << std::endl;
     }
 }
+
+void
+house::associateDeviceToProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            foundRoom->asocDeviceToProcessor(idProcessor, idDevice);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

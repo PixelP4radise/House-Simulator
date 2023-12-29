@@ -33,6 +33,7 @@
 #include "../exceptions/invalidDeviceType.h"
 #include "../exceptions/processorNotFound.h"
 #include "../exceptions/sensorNotFound.h"
+#include "../exceptions/deviceNotFound.h"
 
 
 class room : public houseElements {
@@ -85,6 +86,8 @@ public:
     void setCommand(const std::string &idProcessor, const std::string &newCommand);
 
     void showRulesFrom(const std::string &idProcessor);
+
+    void asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice);
 };
 
 
