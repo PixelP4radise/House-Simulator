@@ -59,6 +59,8 @@ public:
             int parameter2);
 
     void changeCommand(const std::string &id, const std::string &idProcessor, const std::string &newCommand);
+
+    void showRulesFrom(const std::string &id, const std::string &idProcessor);
 };
 
 

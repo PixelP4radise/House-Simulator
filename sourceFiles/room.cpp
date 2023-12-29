@@ -212,3 +212,19 @@ void room::setCommand(const std::string &idProcessor, const std::string &newComm
 
     }
 }
+
+void room::showRulesFrom(const std::string &idProcessor) {
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    try {
+        if (processorIt != vectorProcessors.end()) {
+            auto &processor = *processorIt;
+            processor->showRules();
+        } else {
+            throw processorNotFound();
+        }
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+
+    }
+}

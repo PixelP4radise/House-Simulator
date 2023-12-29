@@ -81,6 +81,8 @@ public:
                  int parameter1, int parameter2);
 
     void setCommand(const std::string &idProcessor, const std::string &newCommand);
+
+    void showRulesFrom(const std::string &idProcessor);
 };
 
 

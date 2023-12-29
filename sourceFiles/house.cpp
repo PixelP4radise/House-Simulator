@@ -186,3 +186,17 @@ void house::changeCommand(const std::string &id, const std::string &idProcessor,
         std::cout << ex.what() << std::endl;
     }
 }
+
+void house::showRulesFrom(const std::string &id, const std::string &idProcessor) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            foundRoom->showRulesFrom(idProcessor);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

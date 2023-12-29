@@ -47,6 +47,26 @@ processor::addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &
     }
 }
 
+void processor::removeRule(const std::string &id) {
+    try {
+        auto ruleIt = std::find_if(vectorRules.begin(), vectorRules.end(),
+                                   [id](const auto &obj) { return obj->getId() == id; });
+        if (ruleIt != vectorRules.end()) {
+            vectorRules.erase(ruleIt);
+        } else {
+            throw ruleNotFound();
+        }
+    } catch (const ruleNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
 void processor::setCommand(const std::string &newCommand) {
     command = newCommand;
+}
+
+void processor::showRules() {
+    for (const auto &rule: vectorRules) {
+        std::cout << rule->describe() << std::endl;
+    }
 }

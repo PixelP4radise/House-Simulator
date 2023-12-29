@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include "./houseElements.h"
 #include "./devices/devices.h"
 #include "./rules/equalTo.h"
@@ -15,6 +16,7 @@
 #include "./rules/outsideOf.h"
 #include "./rules/within.h"
 #include "../exceptions/unknowRule.h"
+#include "../exceptions/ruleNotFound.h"
 
 class processor : public houseElements {
 private:
@@ -36,7 +38,11 @@ public:
 
     void addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &type, int parameter1, int parameter2);
 
+    void removeRule(const std::string &id);
+
     void setCommand(const std::string &newCommand);
+
+    void showRules();
 };
 
 
