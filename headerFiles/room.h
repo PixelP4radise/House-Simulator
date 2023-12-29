@@ -80,6 +80,8 @@ public:
     void addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
                  int parameter1, int parameter2);
 
+    void removeRuleFrom(const std::string &idProcessor, const std::string &idRule);
+
     void setCommand(const std::string &idProcessor, const std::string &newCommand);
 
     void showRulesFrom(const std::string &idProcessor);

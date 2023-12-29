@@ -197,6 +197,23 @@ void room::addRule(const std::string &idProcessor, const std::string &idSensor, 
     }
 }
 
+void room::removeRuleFrom(const std::string &idProcessor, const std::string &idRule) {
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    try {
+        if (processorIt != vectorProcessors.end()) {
+            auto &processor = *processorIt;
+            processor->removeRule(idRule);
+        } else {
+            throw processorNotFound();
+        }
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+
+    }
+
+}
+
 void room::setCommand(const std::string &idProcessor, const std::string &newCommand) {
     auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
                                     [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
@@ -225,6 +242,5 @@ void room::showRulesFrom(const std::string &idProcessor) {
         }
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
-
     }
 }

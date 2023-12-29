@@ -53,6 +53,8 @@ public:
     addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor, const std::string &type,
             int parameter1);
 
+    void removeRuleFrom(const std::string &id, const std::string &idProcessor, const std::string &idRule);
+
     void
     addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor, const std::string &type,
             int parameter1,

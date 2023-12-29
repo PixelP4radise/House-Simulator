@@ -173,6 +173,21 @@ house::addRule(const std::string &id, const std::string &idProcessor, const std:
     }
 }
 
+void house::removeRuleFrom(const std::string &id, const std::string &idProcessor, const std::string &idRule) {
+    auto roomIt = std::find_if(houseRooms.begin(), houseRooms.end(),
+                               [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (roomIt != houseRooms.end()) {
+            auto &foundRoom = *roomIt;
+            foundRoom->removeRuleFrom(idProcessor, idRule);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
 void house::changeCommand(const std::string &id, const std::string &idProcessor, const std::string &newCommand) {
     auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
     try {
