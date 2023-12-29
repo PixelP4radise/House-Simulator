@@ -70,4 +70,6 @@ add_executable(House_Simulator main.cpp
         sourceFiles/propertys/smoke.cpp
         headerFiles/propertys/smoke.h
         exceptions/invalidDeviceType.h
-        exceptions/invalidSensorType.h)
+        exceptions/invalidSensorType.h
+        exceptions/outOfRangeProperty.h
+        exceptions/processorNotFound.h)
