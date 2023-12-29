@@ -10,6 +10,9 @@
 class humiditySensor : public sensor {
 private:
 public:
+
+    explicit humiditySensor(const std::shared_ptr<property> &sharedPtr);
+
     [[nodiscard]]
     std::string describe() const override;
 };

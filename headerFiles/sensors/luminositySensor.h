@@ -10,6 +10,8 @@
 class luminositySensor : public sensor {
 private:
 public:
+    explicit luminositySensor(const std::shared_ptr<property> &sharedPtr);
+
     [[nodiscard]]
     std::string describe() const override;
 };

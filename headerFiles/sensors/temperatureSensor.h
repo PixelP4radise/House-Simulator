@@ -10,6 +10,9 @@
 class temperatureSensor : public sensor {
 private:
 public:
+
+    explicit temperatureSensor(const std::shared_ptr<property> &sharedPtr);
+
     [[nodiscard]]
     std::string describe() const override;
 };

@@ -4,6 +4,9 @@
 
 #include "../../headerFiles/sensors/temperatureSensor.h"
 
+temperatureSensor::temperatureSensor(const std::shared_ptr<property> &sharedPtr) : sensor(sharedPtr) {}
+
 std::string temperatureSensor::describe() const {
-    return getId() + " Temperature Sensor ";// it needs to return the value of the property;
+    return getId() + " Temperature Sensor " +
+           std::to_string(sensor::getValue());// it needs to return the value of the property;
 }

@@ -10,6 +10,8 @@
 class soundSensor : public sensor {
 private:
 public:
+    explicit soundSensor(const std::shared_ptr<property> &sharedPtr);
+
     [[nodiscard]]
     std::string describe() const override;
 };

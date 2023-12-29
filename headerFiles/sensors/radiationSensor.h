@@ -10,7 +10,7 @@
 class radiationSensor : public sensor {
 private:
 public:
-    radiationSensor();
+    explicit radiationSensor(const std::shared_ptr<property> &sharedPtr);
 
     [[nodiscard]]
     std::string describe() const override;

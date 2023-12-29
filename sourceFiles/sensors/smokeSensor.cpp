@@ -4,6 +4,9 @@
 
 #include "../../headerFiles/sensors/smokeSensor.h"
 
+smokeSensor::smokeSensor(const std::shared_ptr<property> &sharedPtr) : sensor(sharedPtr) {}
+
 std::string smokeSensor::describe() const {
-    return getId() + " Smoke Sensor ";// it needs to return the value of the property;
+    return getId() + " Smoke Sensor " +
+           std::to_string(sensor::getValue());// it needs to return the value of the property;
 }
