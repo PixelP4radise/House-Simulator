@@ -57,6 +57,8 @@ public:
     addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor, const std::string &type,
             int parameter1,
             int parameter2);
+
+    void changeCommand(const std::string &id, const std::string &idProcessor, const std::string &newCommand);
 };
 
 

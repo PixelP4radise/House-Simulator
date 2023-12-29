@@ -79,6 +79,8 @@ public:
 
     void addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
                  int parameter1, int parameter2);
+
+    void setCommand(const std::string &idProcessor, const std::string &newCommand);
 };
 
 

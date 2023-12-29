@@ -172,3 +172,17 @@ house::addRule(const std::string &id, const std::string &idProcessor, const std:
         std::cout << ex.what() << std::endl;
     }
 }
+
+void house::changeCommand(const std::string &id, const std::string &idProcessor, const std::string &newCommand) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it != houseRooms.end()) {
+            auto &foundRoom = *it;
+            foundRoom->setCommand(idProcessor, newCommand);
+        } else {
+            throw roomNotFound();
+        }
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

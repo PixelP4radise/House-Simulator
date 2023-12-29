@@ -46,3 +46,7 @@ processor::addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &
         std::cout << ex.what() << std::endl;
     }
 }
+
+void processor::setCommand(const std::string &newCommand) {
+    command = newCommand;
+}

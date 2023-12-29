@@ -174,14 +174,14 @@ room::addRule(const std::string &idProcessor, const std::string &idSensor, const
 
 void room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1,
                    int parameter2) {
-    auto processadorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                      [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
     auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
                                  [idSensor](const auto &obj) { return obj->getId() == idSensor; });
     try {
-        if (processadorIt != vectorProcessors.end()) {
+        if (processorIt != vectorProcessors.end()) {
             if (sensorIt != vectorSensors.end()) {
-                auto &processor = *processadorIt;
+                auto &processor = *processorIt;
                 auto &sensor = *sensorIt;
                 processor->addRule(sensor, type, parameter1, parameter2);
             } else {
@@ -194,5 +194,21 @@ void room::addRule(const std::string &idProcessor, const std::string &idSensor, 
         std::cout << ex.what() << std::endl;
     } catch (const sensorNotFound &ex) {
         std::cout << ex.what() << std::endl;
+    }
+}
+
+void room::setCommand(const std::string &idProcessor, const std::string &newCommand) {
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    try {
+        if (processorIt != vectorProcessors.end()) {
+            auto &processor = *processorIt;
+            processor->setCommand(newCommand);
+        } else {
+            throw processorNotFound();
+        }
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+
     }
 }
