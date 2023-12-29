@@ -17,3 +17,13 @@ int property::getMax() const {
 int property::getMin() const {
     return min;
 }
+
+void property::setValue(int valueToBe) {
+    try {
+        if (valueToBe > getMax() or valueToBe < getMin())
+            throw outOfRangeProperty();
+        value = valueToBe;
+    } catch (const outOfRangeProperty &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

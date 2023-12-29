@@ -6,6 +6,7 @@
 #define HOUSE_SIMULATOR_PROPERTY_H
 
 #include <iostream>
+#include "../../exceptions/outOfRangeProperty.h"
 
 class property {
 private:
@@ -24,6 +25,8 @@ public:
 
     [[nodiscard]]
     int getMin() const;
+
+    void setValue(int valueToBe);
 };
 
 
