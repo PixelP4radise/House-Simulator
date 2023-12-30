@@ -10,6 +10,8 @@
 class refrigerator : public devices {
 private:
 public:
+    explicit refrigerator(std::string command = "desliga");
+
     [[nodiscard]]
     std::string describe() const override;
 };

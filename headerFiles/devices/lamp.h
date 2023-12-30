@@ -8,6 +8,10 @@
 #include "devices.h"
 
 class lamp : public devices {
+private:
+public:
+    explicit lamp(std::string command = "desliga");
+
     [[nodiscard]]
     std::string describe() const override;
 };

@@ -13,6 +13,9 @@ private:
     std::string command;
     unsigned int turnedOnFor;
 public:
+
+    explicit devices(std::string command = "desliga");
+
     [[nodiscard]]
     std::string getId() const override;
 

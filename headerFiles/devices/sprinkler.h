@@ -10,6 +10,8 @@
 class sprinkler : public devices {
 private:
 public:
+    explicit sprinkler(std::string command = "desliga");
+
     [[nodiscard]]
     std::string describe() const override;
 };

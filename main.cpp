@@ -4,11 +4,11 @@
 int main() {
     house fireHouse;
     fireHouse.newRoom(1, 1);
-    fireHouse.newRoom(1, 2);
-    fireHouse.listRooms();
-    std::string p{"r1"};
-    fireHouse.deleteRoom(p);
-    std::cout << std::endl;
-    fireHouse.listRooms();
+    fireHouse.newComponent("r0", 'p', "liga");
+    fireHouse.newComponent("r0", 'd', "heater");
+    std::cout << fireHouse.describeRoom("r0");
     return 0;
 }
+
+
+

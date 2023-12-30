@@ -10,6 +10,9 @@
 class heater : public devices {
 private:
 public:
+
+    explicit heater(std::string command = "desliga");
+
     [[nodiscard]]
     std::string describe() const override;
 };
