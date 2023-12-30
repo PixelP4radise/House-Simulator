@@ -50,15 +50,10 @@ processor::addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &
     }
 }
 
-void processor::removeRule(const std::string &id) {
+void processor::removeRule(const std::string &idRule) {
     try {
-        auto ruleIt = std::find_if(vectorRules.begin(), vectorRules.end(),
-                                   [id](const auto &obj) { return obj->getId() == id; });
-        if (ruleIt != vectorRules.end()) {
-            vectorRules.erase(ruleIt);
-        } else {
-            throw ruleNotFound();
-        }
+        auto ruleIt = findRuleItById(idRule);
+        vectorRules.erase(ruleIt);
     } catch (const ruleNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
@@ -80,17 +75,32 @@ void processor::associateDevice(const std::shared_ptr<devices> &toBeAsoc) {
 }
 
 void processor::disassociateDevice(const std::string &idDevice) {
+    try {
+        auto deviceIt = findDeviceItById(idDevice);
+        processorOutput.erase(deviceIt);
+    } catch (const deviceNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const acessError &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+std::vector<std::weak_ptr<devices>>::const_iterator processor::findDeviceItById(const std::string &idDevice) const {
     auto deviceIt = std::find_if(processorOutput.begin(), processorOutput.end(), [idDevice](const auto &obj) {
         auto sharedPtr = obj.lock();
         if (sharedPtr)
             return sharedPtr->getId() == idDevice;
-        throw deviceNotFound();
+        throw acessError();
     });
-    try {
-        if (deviceIt == processorOutput.end())
-            throw deviceNotFound();
-        processorOutput.erase(deviceIt);
-    } catch (const deviceNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    if (deviceIt == processorOutput.end())
+        throw deviceNotFound();
+    return deviceIt;
+}
+
+std::vector<std::unique_ptr<rule>>::const_iterator processor::findRuleItById(const std::string &idRule) const {
+    auto ruleIt = std::find_if(vectorRules.begin(), vectorRules.end(),
+                               [idRule](const auto &obj) { return obj->getId() == idRule; });
+    if (ruleIt == vectorRules.end())
+        throw ruleNotFound();
+    return ruleIt;
 }

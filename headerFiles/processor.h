@@ -39,7 +39,7 @@ public:
 
     void addRule(const std::shared_ptr<sensor> &sharedPtr, const std::string &type, int parameter1, int parameter2);
 
-    void removeRule(const std::string &id);
+    void removeRule(const std::string &idRule);
 
     void setCommand(const std::string &newCommand);
 
@@ -48,6 +48,12 @@ public:
     void associateDevice(const std::shared_ptr<devices> &toBeAsoc);
 
     void disassociateDevice(const std::string &idDevice);
+
+    [[nodiscard]]
+    std::vector<std::weak_ptr<devices>>::const_iterator findDeviceItById(const std::string &idDevice) const;
+
+    [[nodiscard]]
+    std::vector<std::unique_ptr<rule>>::const_iterator findRuleItById(const std::string &idRule) const;
 };
 
 
