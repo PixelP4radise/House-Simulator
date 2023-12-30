@@ -13,6 +13,8 @@ public:
 
     explicit humiditySensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~humiditySensor() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

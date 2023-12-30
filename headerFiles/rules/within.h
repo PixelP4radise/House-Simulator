@@ -13,6 +13,8 @@ private:
 public:
     explicit within(const std::shared_ptr<sensor> &sensorPtr, int parameter1, int parameter2);
 
+    ~within() override = default;
+
     void evaluate() override;
 
     [[nodiscard]]

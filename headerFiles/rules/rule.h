@@ -24,6 +24,8 @@ private:
 public:
     explicit rule(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    ~rule() override = default;
+
     [[nodiscard]]
     std::string getId() const override;
 

@@ -14,8 +14,9 @@ private:
     int max;
     int min;
 public:
-
     explicit property(int min, int max = INT_MAX, int value = 0);
+
+    ~property() = default;
 
     [[nodiscard]]
     int getValue() const;

@@ -12,6 +12,8 @@ private:
 public:
     explicit soundSensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~soundSensor() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

@@ -11,6 +11,8 @@ class lesserThan : public rule {
 public:
     explicit lesserThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    ~lesserThan() override = default;
+
     void evaluate() override;
 
     [[nodiscard]]

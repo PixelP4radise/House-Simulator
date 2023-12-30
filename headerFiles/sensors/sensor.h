@@ -21,6 +21,8 @@ private:
 public:
     explicit sensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~sensor() override = default;
+
     [[nodiscard]]
     std::string getId() const override;
 

@@ -13,6 +13,8 @@ public:
 
     explicit temperatureSensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~temperatureSensor() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

@@ -12,6 +12,8 @@ private:
 public:
     explicit sprinkler(std::string command = "desliga");
 
+    ~sprinkler() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

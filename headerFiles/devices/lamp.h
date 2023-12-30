@@ -12,6 +12,9 @@ private:
 public:
     explicit lamp(std::string command = "desliga");
 
+    ~lamp() override = default;
+
+
     [[nodiscard]]
     std::string describe() const override;
 };

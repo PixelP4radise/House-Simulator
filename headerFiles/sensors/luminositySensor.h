@@ -12,6 +12,8 @@ private:
 public:
     explicit luminositySensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~luminositySensor() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

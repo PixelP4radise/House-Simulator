@@ -46,6 +46,8 @@ private:
 public:
     room(unsigned int nLines, unsigned int nCollumns);
 
+    ~room() override = default;
+
     [[nodiscard]]
     unsigned int getNLines() const;
 

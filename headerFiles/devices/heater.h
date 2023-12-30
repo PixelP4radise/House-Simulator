@@ -13,6 +13,8 @@ public:
 
     explicit heater(std::string command = "desliga");
 
+    ~heater() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

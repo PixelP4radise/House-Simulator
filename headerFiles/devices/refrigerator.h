@@ -12,6 +12,8 @@ private:
 public:
     explicit refrigerator(std::string command = "desliga");
 
+    ~refrigerator() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

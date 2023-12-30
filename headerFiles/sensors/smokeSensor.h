@@ -13,6 +13,8 @@ public:
 
     explicit smokeSensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~smokeSensor() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

@@ -36,3 +36,5 @@ cmake-build-debug
 
 left behind.txt
 logs.txt
+checking.md
+implementation.md

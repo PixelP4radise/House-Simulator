@@ -12,6 +12,8 @@ private:
 public:
     explicit movementSensor(const std::shared_ptr<property> &sharedPtr);
 
+    ~movementSensor() override = default;
+
     [[nodiscard]]
     std::string describe() const override;
 };

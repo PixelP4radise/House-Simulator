@@ -16,10 +16,13 @@ public:
 
     virtual ~houseElements() = default;
 
+    [[nodiscard]]
     std::string getNum() const;
 
+    [[nodiscard]]
     virtual std::string getId() const = 0;
 
+    [[nodiscard]]
     virtual std::string describe() const = 0;
 };
 

@@ -11,6 +11,8 @@ class greaterThan : public rule {
 public:
     explicit greaterThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    ~greaterThan() override = default;
+
     void evaluate() override;
 
     [[nodiscard]]
