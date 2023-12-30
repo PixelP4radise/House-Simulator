@@ -31,15 +31,12 @@ std::string room::getId() const {
 
 std::string room::describe() const {
     std::string description{};
-    for (auto &sensor: vectorSensors) {
+    for (auto &sensor: vectorSensors)
         description += sensor->describe() + '\n';
-    }
-    for (auto &device: vectorDevices) {
+    for (auto &device: vectorDevices)
         description += device->describe() + '\n';
-    }
-    for (auto &processor: vectorProcessors) {
+    for (auto &processor: vectorProcessors)
         description += processor->describe() + '\n';
-    }
     return description;
 }
 
@@ -48,16 +45,10 @@ void room::addProcessor(std::string command) {
     vectorProcessors.push_back(std::move(ptr));
 }
 
-void room::removeProcessor(const std::string &idOfComponent) {
-    auto it = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                           [idOfComponent](const auto &obj) { return obj->getId() == idOfComponent; });
+void room::removeProcessor(const std::string &idProcessor) {
     try {
-
-        if (it != vectorProcessors.end())
-            vectorProcessors.erase(it);
-        else
-            throw processorNotFound();
-
+        auto processorIt = findProcessorItById(idProcessor);
+        vectorProcessors.erase(processorIt);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
@@ -88,16 +79,10 @@ void room::addSensor(const std::string &property) {
     }
 }
 
-void room::removeSensor(const std::string &idOfComponent) {
-    auto it = std::find_if(vectorSensors.begin(), vectorSensors.end(),
-                           [idOfComponent](const auto &obj) { return obj->getId() == idOfComponent; });
+void room::removeSensor(const std::string &idSensor) {
     try {
-
-        if (it != vectorSensors.end())
-            vectorSensors.erase(it);
-        else
-            throw processorNotFound();
-
+        auto sensorIt = findSensorItById(idSensor);
+        vectorSensors.erase(sensorIt);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
@@ -122,16 +107,10 @@ void room::addDevice(const std::string &device) {
     }
 }
 
-void room::removeDevice(const std::string &idOfComponent) {
-    auto it = std::find_if(vectorDevices.begin(), vectorDevices.end(),
-                           [idOfComponent](const auto &obj) { return obj->getId() == idOfComponent; });
+void room::removeDevice(const std::string &idDevice) {
     try {
-
-        if (it != vectorDevices.end())
-            vectorDevices.erase(it);
-        else
-            throw processorNotFound();
-
+        auto deviceIt = findDeviceItById(idDevice);
+        vectorDevices.erase(deviceIt);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
@@ -139,7 +118,6 @@ void room::removeDevice(const std::string &idOfComponent) {
 
 std::string room::showPropertys() const {
     std::string description{};
-
     for (const auto &[key, value]: roomPropertys) {
         description += key + ' ' + std::to_string(value->getValue()) + '\n';
     }
@@ -152,22 +130,12 @@ void room::changeProperty(const std::string &propertyTobeChanged, int valueToBe)
 
 void
 room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1) {
-    auto processadorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                      [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
-    auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
-                                 [idSensor](const auto &obj) { return obj->getId() == idSensor; });
     try {
-        if (processadorIt != vectorProcessors.end()) {
-            if (sensorIt != vectorSensors.end()) {
-                auto &processor = *processadorIt;
-                auto &sensor = *sensorIt;
-                processor->addRule(sensor, type, parameter1);
-            } else {
-                throw sensorNotFound();
-            }
-        } else {
-            throw processorNotFound();
-        }
+        auto processadorIt = findProcessorItById(idProcessor);
+        auto sensorIt = findSensorItById(idSensor);
+        auto &processor = *processadorIt;
+        auto &sensor = *sensorIt;
+        processor->addRule(sensor, type, parameter1);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     } catch (const sensorNotFound &ex) {
@@ -177,22 +145,12 @@ room::addRule(const std::string &idProcessor, const std::string &idSensor, const
 
 void room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1,
                    int parameter2) {
-    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
-    auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
-                                 [idSensor](const auto &obj) { return obj->getId() == idSensor; });
     try {
-        if (processorIt != vectorProcessors.end()) {
-            if (sensorIt != vectorSensors.end()) {
-                auto &processor = *processorIt;
-                auto &sensor = *sensorIt;
-                processor->addRule(sensor, type, parameter1, parameter2);
-            } else {
-                throw sensorNotFound();
-            }
-        } else {
-            throw processorNotFound();
-        }
+        auto processorIt = findProcessorItById(idProcessor);
+        auto sensorIt = findSensorItById(idSensor);
+        auto &processor = *processorIt;
+        auto &sensor = *sensorIt;
+        processor->addRule(sensor, type, parameter1, parameter2);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     } catch (const sensorNotFound &ex) {
@@ -201,63 +159,39 @@ void room::addRule(const std::string &idProcessor, const std::string &idSensor, 
 }
 
 void room::removeRuleFrom(const std::string &idProcessor, const std::string &idRule) {
-    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
     try {
-        if (processorIt != vectorProcessors.end()) {
-            auto &processor = *processorIt;
-            processor->removeRule(idRule);
-        } else {
-            throw processorNotFound();
-        }
+        auto processorIt = findProcessorItById(idProcessor);
+        auto &processor = *processorIt;
+        processor->removeRule(idRule);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
-
     }
-
 }
 
 void room::changeCommand(const std::string &idProcessor, const std::string &newCommand) {
-    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
     try {
-        if (processorIt != vectorProcessors.end()) {
-            auto &processor = *processorIt;
-            processor->setCommand(newCommand);
-        } else {
-            throw processorNotFound();
-        }
+        auto processorIt = findProcessorItById(idProcessor);
+        auto &processor = *processorIt;
+        processor->setCommand(newCommand);
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
-
     }
 }
 
 void room::showRulesFrom(const std::string &idProcessor) {
-    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
     try {
-        if (processorIt != vectorProcessors.end()) {
-            auto &processor = *processorIt;
-            processor->showRules();
-        } else {
-            throw processorNotFound();
-        }
+        auto processorIt = findProcessorItById(idProcessor);
+        auto &processor = *processorIt;
+        processor->showRules();
     } catch (const processorNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
 }
 
 void room::asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) {
-    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
-    auto deviceIt = std::find_if(vectorDevices.begin(), vectorDevices.end(),
-                                 [idDevice](const auto &obj) { return obj->getId() == idDevice; });
     try {
-        if (processorIt == vectorProcessors.end())
-            throw processorNotFound();
-        if (deviceIt == vectorDevices.end())
-            throw deviceNotFound();
+        auto processorIt = findProcessorItById(idProcessor);
+        auto deviceIt = findDeviceItById(idDevice);
         auto &processor = *processorIt;
         auto &device = *deviceIt;
         processor->associateDevice(device);
@@ -269,12 +203,8 @@ void room::asocDeviceToProcessor(const std::string &idProcessor, const std::stri
 }
 
 void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) {
-    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
-                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
-
     try {
-        if (processorIt == vectorProcessors.end())
-            throw processorNotFound();
+        auto processorIt = findProcessorItById(idProcessor);
         auto &processor = *processorIt;
         processor->disassociateDevice(idDevice);
     } catch (const processorNotFound &ex) {
@@ -283,14 +213,35 @@ void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::st
 }
 
 void room::sendCommandTo(const std::string &idDevice, const std::string &newCommand) {
-    auto deviceIt = std::find_if(vectorDevices.begin(), vectorDevices.end(),
-                                 [idDevice](const auto &obj) { return obj->getId() == idDevice; });
     try {
-        if (deviceIt == vectorDevices.end())
-            throw deviceNotFound();
+        auto deviceIt = findDeviceItById(idDevice);
         auto &device = *deviceIt;
         device->setCommand(newCommand);
     } catch (const deviceNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
+}
+
+std::vector<std::shared_ptr<sensor>>::iterator room::findSensorItById(const std::string &idSensor) {
+    auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
+                                 [idSensor](const auto &obj) { return obj->getId() == idSensor; });
+    if (sensorIt == vectorSensors.end())
+        throw sensorNotFound();
+    return sensorIt;
+}
+
+std::vector<std::shared_ptr<devices>>::iterator room::findDeviceItById(const std::string &idDevice) {
+    auto deviceIt = std::find_if(vectorDevices.begin(), vectorDevices.end(),
+                                 [idDevice](const auto &obj) { return obj->getId() == idDevice; });
+    if (deviceIt == vectorDevices.end())
+        throw deviceNotFound();
+    return deviceIt;
+}
+
+std::vector<std::shared_ptr<processor>>::iterator room::findProcessorItById(const std::string &idProcessor) {
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+    if (processorIt == vectorProcessors.end())
+        throw processorNotFound();
+    return processorIt;
 }

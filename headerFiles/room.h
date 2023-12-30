@@ -62,7 +62,7 @@ public:
 
     void addProcessor(std::string command);
 
-    void removeProcessor(const std::string &idOfComponent);
+    void removeProcessor(const std::string &idProcessor);
 
     void addSensor(const std::string &property);
 
@@ -70,7 +70,7 @@ public:
 
     void addDevice(const std::string &device);
 
-    void removeDevice(const std::string &idOfComponent);
+    void removeDevice(const std::string &idDevice);
 
     [[nodiscard]]
     std::string showPropertys() const;
@@ -94,6 +94,15 @@ public:
     void disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice);
 
     void sendCommandTo(const std::string &idDevice, const std::string &newCommand);
+
+    [[nodiscard]]
+    std::vector<std::shared_ptr<sensor>>::iterator findSensorItById(const std::string &idSensor);
+
+    [[nodiscard]]
+    std::vector<std::shared_ptr<devices>>::iterator findDeviceItById(const std::string &idDevice);
+
+    [[nodiscard]]
+    std::vector<std::shared_ptr<processor>>::iterator findProcessorItById(const std::string &idProcessor);
 };
 
 
