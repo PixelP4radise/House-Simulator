@@ -252,3 +252,22 @@ void house::restoreProcessor(const std::string &name) {
         std::cout << ex.what() << std::endl;
     }
 }
+
+void house::removeProcessorFromMemory(const std::string &name) {
+    try {
+        auto nameIt = processorMemory.find(name);
+        if (nameIt == processorMemory.end())
+            throw nameNotFound();
+        processorMemory.erase(nameIt);
+    } catch (const nameNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void house::showProcessorsFromMemory() const {
+    std::string description{};
+    for (const auto &[key, value]: processorMemory) {
+        description += key + ' ' + value->getId() + ' ' + value->getRoomId() + '\n';
+    }
+    std::cout << description << std::endl;
+}

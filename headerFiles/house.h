@@ -15,6 +15,7 @@
 #include "../exceptions/invalidPosition.h"
 #include "../exceptions/invalidDeviceType.h"
 #include "../exceptions/nameAlreadyExists.h"
+#include "../exceptions/nameNotFound.h"
 
 class house {
 private:
@@ -84,6 +85,10 @@ public:
     void saveProcessor(const std::string &idRoom, const std::string &idProcessor, const std::string &name);
 
     void restoreProcessor(const std::string &name);
+
+    void removeProcessorFromMemory(const std::string &name);
+
+    void showProcessorsFromMemory() const;
 };
 
 
