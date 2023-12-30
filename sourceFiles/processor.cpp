@@ -4,7 +4,10 @@
 
 #include "../headerFiles/processor.h"
 
-processor::processor(std::string command) : command(std::move(command)) {}
+processor::processor(std::string command) : command(std::move(command)) {
+    static unsigned int counter{};
+    num = counter++;
+}
 
 std::string processor::getId() const {
     return "p" + getNum();

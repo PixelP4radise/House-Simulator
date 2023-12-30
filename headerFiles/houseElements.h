@@ -9,7 +9,7 @@
 #include <memory>
 
 class houseElements {
-private:
+protected:
     unsigned int num;
 public:
     houseElements();

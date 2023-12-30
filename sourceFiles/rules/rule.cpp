@@ -5,7 +5,10 @@
 #include "../../headerFiles/rules/rule.h"
 
 rule::rule(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : detector(sensorPtr), state(false),
-                                                                       firstParameter(parameter1) {}
+                                                                       firstParameter(parameter1) {
+    static unsigned int counter{};
+    num = counter++;
+}
 
 std::string rule::getId() const {
     return "r" + getNum();

@@ -5,6 +5,9 @@
 #include "../headerFiles/room.h"
 
 room::room(unsigned int nLines, unsigned int nCollumns) : nLines(nLines), nCollums(nCollumns) {
+    static unsigned int counter{};
+    num = counter++;
+
     roomPropertys["temperature"] = std::make_shared<temperature>();
     roomPropertys["light"] = std::make_shared<luminosity>();
     roomPropertys["radiation"] = std::make_shared<radiation>();

@@ -4,10 +4,7 @@
 
 #include "../headerFiles/houseElements.h"
 
-houseElements::houseElements() {
-    static unsigned int counter{};
-    num = counter++;
-}
+houseElements::houseElements() {}
 
 std::string houseElements::getNum() const {
     return std::to_string(num);

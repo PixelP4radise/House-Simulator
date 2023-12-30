@@ -4,7 +4,10 @@
 
 #include "../../headerFiles/devices/devices.h"
 
-devices::devices(std::string command) : command(std::move(command)), turnedOnFor(0) {}
+devices::devices(std::string command) : command(std::move(command)), turnedOnFor(0) {
+    static unsigned int counter{};
+    num = counter++;
+}
 
 std::string devices::getId() const {
     return "d" + getNum();

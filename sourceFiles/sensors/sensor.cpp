@@ -4,7 +4,10 @@
 
 #include "../../headerFiles/sensors/sensor.h"
 
-sensor::sensor(const std::shared_ptr<property> &sharedPtr) : prop(sharedPtr) {}
+sensor::sensor(const std::shared_ptr<property> &sharedPtr) : prop(sharedPtr) {
+    static unsigned int counter{};
+    num = counter++;
+}
 
 std::string sensor::getId() const {
     return "s" + getNum();
