@@ -219,3 +219,18 @@ std::vector<std::unique_ptr<room>>::const_iterator house::findRoomItByID(const s
         throw roomNotFound();
     return roomIt;
 }
+
+void house::saveProcessor(const std::string &idRoom, const std::string &idProcessor, const std::string &name) {
+    try {
+        auto nameIt = processorMemory.find(name);
+        if (nameIt == processorMemory.end())
+            throw nameAlreadyExists();
+        auto roomIt = findRoomItByID(idRoom);
+        auto &foundRoom = *roomIt;
+        processorMemory.at(name) = foundRoom->copyProcessor(idProcessor);
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    } catch (const nameAlreadyExists &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

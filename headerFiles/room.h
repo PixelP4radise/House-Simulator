@@ -103,6 +103,9 @@ public:
 
     [[nodiscard]]
     std::vector<std::shared_ptr<processor>>::const_iterator findProcessorItById(const std::string &idProcessor) const;
+
+    [[nodiscard]]
+    std::unique_ptr<processor> copyProcessor(const std::string &idProcessor) const;
 };
 
 

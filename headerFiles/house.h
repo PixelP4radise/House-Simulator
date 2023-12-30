@@ -14,9 +14,11 @@
 #include "../exceptions/roomNotFound.h"
 #include "../exceptions/invalidPosition.h"
 #include "../exceptions/invalidDeviceType.h"
+#include "../exceptions/nameAlreadyExists.h"
 
 class house {
 private:
+    std::map<std::string, std::unique_ptr<processor>> processorMemory;
     std::vector<std::unique_ptr<room>> houseRooms;
     unsigned int nLines, nCollums;
 public:
@@ -78,6 +80,8 @@ public:
 
     [[nodiscard]]
     std::vector<std::unique_ptr<room>>::const_iterator findRoomItByID(const std::string &idRoom) const;
+
+    void saveProcessor(const std::string &idRoom, const std::string &idProcessor, const std::string &name);
 };
 
 

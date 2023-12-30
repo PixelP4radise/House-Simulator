@@ -247,3 +247,9 @@ room::findProcessorItById(const std::string &idProcessor) const {
         throw processorNotFound();
     return processorIt;
 }
+
+std::unique_ptr<processor> room::copyProcessor(const std::string &idProcessor) const {
+    auto processorIt = findProcessorItById(idProcessor);
+    const auto &processorPtr = *processorIt;
+    return std::make_unique<processor>(*processorPtr);
+}
