@@ -106,6 +106,8 @@ public:
 
     [[nodiscard]]
     std::unique_ptr<processor> copyProcessor(const std::string &idProcessor) const;
+
+    void restoreProcessor(const processor &toBeRestored);
 };
 
 

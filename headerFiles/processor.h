@@ -33,6 +33,9 @@ public:
     ~processor() override = default;
 
     [[nodiscard]]
+    std::string getRoomId() const;
+
+    [[nodiscard]]
     std::string getId() const override;
 
     [[nodiscard]]

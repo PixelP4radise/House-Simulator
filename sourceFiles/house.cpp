@@ -224,7 +224,7 @@ void house::saveProcessor(const std::string &idRoom, const std::string &idProces
     try {
         if (processorMemory.size() > 0) {
             auto nameIt = processorMemory.find(name);
-            if (nameIt == processorMemory.end())
+            if (nameIt != processorMemory.end())
                 throw nameAlreadyExists();
         }
         auto roomIt = findRoomItByID(idRoom);
@@ -233,6 +233,22 @@ void house::saveProcessor(const std::string &idRoom, const std::string &idProces
     } catch (const roomNotFound &ex) {
         std::cout << ex.what() << std::endl;
     } catch (const nameAlreadyExists &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void house::restoreProcessor(const std::string &name) {
+    try {
+        auto nameIt = processorMemory.find(name);
+        if (nameIt != processorMemory.end()) {
+            //if it finds the name
+            auto roomToBeFound = processorMemory[name]->getRoomId();
+            auto roomIt = findRoomItByID(roomToBeFound);
+            //if it finds the rooms
+            auto &foundRoom = *roomIt;
+            foundRoom->restoreProcessor(*processorMemory[name]);
+        }
+    } catch (const roomNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
 }

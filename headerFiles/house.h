@@ -82,6 +82,8 @@ public:
     std::vector<std::unique_ptr<room>>::const_iterator findRoomItByID(const std::string &idRoom) const;
 
     void saveProcessor(const std::string &idRoom, const std::string &idProcessor, const std::string &name);
+
+    void restoreProcessor(const std::string &name);
 };
 
 

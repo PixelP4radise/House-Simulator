@@ -253,3 +253,13 @@ std::unique_ptr<processor> room::copyProcessor(const std::string &idProcessor) c
     const auto &processorPtr = *processorIt;
     return std::make_unique<processor>(*processorPtr);
 }
+
+void room::restoreProcessor(const processor &toBeRestored) {
+    auto processorToBeFound = toBeRestored.getId();
+    try {
+        auto processorIt = findProcessorItById(processorToBeFound);
+        removeProcessor(processorToBeFound);
+    } catch (const processorNotFound &ex) {
+    }
+    vectorProcessors.push_back(std::make_shared<processor>(toBeRestored));
+}

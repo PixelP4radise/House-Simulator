@@ -17,6 +17,10 @@ processor::processor(const processor &source) : command(source.command), process
     setNum(source.getNum());
 }
 
+std::string processor::getRoomId() const {
+    return roomId;
+}
+
 std::string processor::getId() const {
     return "p" + std::to_string(getNum());
 }
