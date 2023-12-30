@@ -26,7 +26,7 @@ unsigned int room::getNCollums() const {
 }
 
 std::string room::getId() const {
-    return "r" + getNum();
+    return "r" + std::to_string(getNum());
 }
 
 std::string room::describe() const {
@@ -41,7 +41,7 @@ std::string room::describe() const {
 }
 
 void room::addProcessor(std::string command) {
-    std::shared_ptr<processor> ptr = std::make_shared<processor>(std::move(command));
+    std::shared_ptr<processor> ptr = std::make_shared<processor>(std::move(command), getId());
     vectorProcessors.push_back(std::move(ptr));
 }
 

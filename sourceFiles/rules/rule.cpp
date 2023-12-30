@@ -11,7 +11,7 @@ rule::rule(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : detector(
 }
 
 std::string rule::getId() const {
-    return "r" + getNum();
+    return "r" + std::to_string(getNum());
 }
 
 std::string rule::describeSensor() const {

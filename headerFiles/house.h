@@ -23,7 +23,7 @@ private:
     unsigned int nLines, nCollums;
 public:
     explicit house(unsigned int nLines = 2,
-                   unsigned int nCollums = 2); //int are all 32 bits // size_t can vary depending on your system
+                   unsigned int nCollums = 2);
 
     ~house() = default;
 

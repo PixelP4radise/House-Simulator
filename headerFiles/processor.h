@@ -21,11 +21,12 @@
 
 class processor : public houseElements {
 private:
+    std::string roomId;
     std::vector<std::unique_ptr<rule>> vectorRules;
     std::string command;
     std::vector<std::weak_ptr<devices>> processorOutput;
 public:
-    explicit processor(std::string command);
+    explicit processor(std::string command, std::string roomId);
 
     processor(const processor &source);
 

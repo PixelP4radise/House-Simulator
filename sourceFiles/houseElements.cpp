@@ -6,6 +6,10 @@
 
 houseElements::houseElements() {}
 
-std::string houseElements::getNum() const {
-    return std::to_string(num);
+unsigned int houseElements::getNum() const {
+    return num;
+}
+
+void houseElements::setNum(unsigned int newNum) {
+    num = newNum;
 }

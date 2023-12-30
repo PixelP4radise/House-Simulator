@@ -4,19 +4,21 @@
 
 #include "../headerFiles/processor.h"
 
-processor::processor(std::string command) : command(std::move(command)) {
+processor::processor(std::string command, std::string roomId) : command(std::move(command)), roomId(roomId) {
     static unsigned int counter{};
     num = counter++;
 }
 
-processor::processor(const processor &source) : command(source.command), processorOutput(source.processorOutput) {
+processor::processor(const processor &source) : command(source.command), processorOutput(source.processorOutput),
+                                                roomId(source.roomId) {
     vectorRules.reserve(source.vectorRules.size());
     for (const auto &rulePtr: source.vectorRules)
         vectorRules.push_back(rulePtr->clone());
+    setNum(source.getNum());
 }
 
 std::string processor::getId() const {
-    return "p" + getNum();
+    return "p" + std::to_string(getNum());
 }
 
 std::string processor::describe() const {

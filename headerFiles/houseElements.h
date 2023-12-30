@@ -16,8 +16,10 @@ public:
 
     virtual ~houseElements() = default;
 
+    void setNum(unsigned int newNum);
+
     [[nodiscard]]
-    std::string getNum() const;
+    unsigned int getNum() const;
 
     [[nodiscard]]
     virtual std::string getId() const = 0;

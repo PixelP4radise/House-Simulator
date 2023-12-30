@@ -10,7 +10,7 @@ sensor::sensor(const std::shared_ptr<property> &sharedPtr) : prop(sharedPtr) {
 }
 
 std::string sensor::getId() const {
-    return "s" + getNum();
+    return "s" + std::to_string(getNum());
 }
 
 int sensor::getValue() const {

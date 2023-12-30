@@ -10,7 +10,7 @@ devices::devices(std::string command) : command(std::move(command)), turnedOnFor
 }
 
 std::string devices::getId() const {
-    return "d" + getNum();
+    return "d" + std::to_string(getNum());
 }
 
 void devices::setCommand(const std::string &newCommand) {
