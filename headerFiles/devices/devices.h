@@ -20,6 +20,9 @@ public:
     [[nodiscard]]
     std::string getId() const override;
 
+    [[nodiscard]]
+    std::string getCommand() const;
+
     void setCommand(const std::string &newCommand);
 };
 

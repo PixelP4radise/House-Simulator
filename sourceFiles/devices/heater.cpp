@@ -7,5 +7,5 @@
 heater::heater(std::string command) : devices(std::move(command)) {}
 
 std::string heater::describe() const {
-    return getId() + " Heater";
+    return getId() + " Heater " + getCommand();
 }

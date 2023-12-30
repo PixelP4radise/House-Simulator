@@ -7,5 +7,5 @@
 sprinkler::sprinkler(std::string command) : devices(std::move(command)) {}
 
 std::string sprinkler::describe() const {
-    return getId() + " Sprinkler";
+    return getId() + " Sprinkler" + getCommand();
 }

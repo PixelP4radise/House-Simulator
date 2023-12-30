@@ -7,5 +7,5 @@
 refrigerator::refrigerator(std::string command) : devices(std::move(command)) {}
 
 std::string refrigerator::describe() const {
-    return getId() + " Refrigerator";
+    return getId() + " Refrigerator" + getCommand();
 }

@@ -13,6 +13,10 @@ std::string devices::getId() const {
     return "d" + std::to_string(getNum());
 }
 
+std::string devices::getCommand() const {
+    return command;
+}
+
 void devices::setCommand(const std::string &newCommand) {
     command = newCommand;
 }

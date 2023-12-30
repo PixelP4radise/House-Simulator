@@ -7,5 +7,5 @@
 lamp::lamp(std::string command) : devices(std::move(command)) {}
 
 std::string lamp::describe() const {
-    return getId() + " Lamp";
+    return getId() + " Lamp " + getCommand();
 }
