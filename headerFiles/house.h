@@ -45,6 +45,9 @@ public:
     void removeComponent(const std::string &idRoom, char type, const std::string &idComponent) const;
 
     [[nodiscard]]
+    std::string describeHouse() const;
+
+    [[nodiscard]]
     std::string describeRoom(const std::string &idRoom) const;
 
     [[nodiscard]]

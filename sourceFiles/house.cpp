@@ -271,3 +271,14 @@ void house::showProcessorsFromMemory() const {
     }
     std::cout << description << std::endl;
 }
+
+std::string house::describeHouse() const {
+    std::string description{};
+    for (const auto &roomPtr: houseRooms) {
+        description +=
+                roomPtr->getId() + ' ' + std::to_string(roomPtr->getNSensors()) + ' ' +
+                std::to_string(roomPtr->getNProcessors()) + ' ' +
+                std::to_string(roomPtr->getNDevices()) + '\n';
+    }
+    return description;
+}
