@@ -85,7 +85,7 @@ public:
 
     void removeRuleFrom(const std::string &idProcessor, const std::string &idRule);
 
-    void setCommand(const std::string &idProcessor, const std::string &newCommand);
+    void changeCommand(const std::string &idProcessor, const std::string &newCommand);
 
     void showRulesFrom(const std::string &idProcessor);
 

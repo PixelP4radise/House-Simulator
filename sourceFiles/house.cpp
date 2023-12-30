@@ -193,7 +193,7 @@ void house::changeCommand(const std::string &id, const std::string &idProcessor,
     try {
         if (it != houseRooms.end()) {
             auto &foundRoom = *it;
-            foundRoom->setCommand(idProcessor, newCommand);
+            foundRoom->changeCommand(idProcessor, newCommand);
         } else {
             throw roomNotFound();
         }

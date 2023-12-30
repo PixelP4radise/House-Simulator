@@ -217,7 +217,7 @@ void room::removeRuleFrom(const std::string &idProcessor, const std::string &idR
 
 }
 
-void room::setCommand(const std::string &idProcessor, const std::string &newCommand) {
+void room::changeCommand(const std::string &idProcessor, const std::string &newCommand) {
     auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
                                     [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
     try {
