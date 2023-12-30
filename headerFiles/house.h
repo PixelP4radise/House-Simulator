@@ -77,7 +77,7 @@ public:
     void sendCommandTo(const std::string &id, const std::string &idDevice, const std::string &newCommand) const;
 
     [[nodiscard]]
-    std::vector<std::unique_ptr<room>>::const_iterator findRoomById(const std::string &idRoom) const;
+    std::vector<std::unique_ptr<room>>::const_iterator findRoomItByID(const std::string &idRoom) const;
 };
 
 

@@ -54,7 +54,7 @@ unsigned int house::getNCollums() const {
 
 void house::newComponent(const std::string &idRoom, char type, const std::string &command) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         if (type == 's') {
             foundRoom->addSensor(command);
@@ -74,7 +74,7 @@ void house::newComponent(const std::string &idRoom, char type, const std::string
 
 void house::removeComponent(const std::string &idRoom, char type, const std::string &idComponent) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         if (type == 's')
             foundRoom->removeSensor(idComponent);
@@ -93,7 +93,7 @@ void house::removeComponent(const std::string &idRoom, char type, const std::str
 
 std::string house::describeRoom(const std::string &idRoom) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         return foundRoom->describe();
     } catch (const roomNotFound &ex) {
@@ -103,7 +103,7 @@ std::string house::describeRoom(const std::string &idRoom) const {
 
 std::string house::showPropertysOfRoom(const std::string &idRoom) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         return foundRoom->showPropertys();
     } catch (const roomNotFound &ex) {
@@ -114,7 +114,7 @@ std::string house::showPropertysOfRoom(const std::string &idRoom) const {
 void
 house::changePropertyOfRoom(const std::string &idRoom, const std::string &propertyTobeChanged, int valueToBe) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->changeProperty(propertyTobeChanged, valueToBe);
     } catch (const roomNotFound &ex) {
@@ -126,7 +126,7 @@ void
 house::addRule(const std::string &idRoom, const std::string &idProcessor, const std::string &idSensor,
                const std::string &type, int parameter1) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->addRule(idProcessor, idSensor, type, parameter1);
     } catch (const roomNotFound &ex) {
@@ -139,7 +139,7 @@ house::addRule(const std::string &idRoom, const std::string &idProcessor, const 
                const std::string &type, int parameter1,
                int parameter2) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->addRule(idProcessor, idSensor, type, parameter1, parameter2);
     } catch (const roomNotFound &ex) {
@@ -149,7 +149,7 @@ house::addRule(const std::string &idRoom, const std::string &idProcessor, const 
 
 void house::removeRuleFrom(const std::string &idRoom, const std::string &idProcessor, const std::string &idRule) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->removeRuleFrom(idProcessor, idRule);
     } catch (const roomNotFound &ex) {
@@ -160,7 +160,7 @@ void house::removeRuleFrom(const std::string &idRoom, const std::string &idProce
 void
 house::changeCommand(const std::string &idRoom, const std::string &idProcessor, const std::string &newCommand) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->changeCommand(idProcessor, newCommand);
     } catch (const roomNotFound &ex) {
@@ -170,7 +170,7 @@ house::changeCommand(const std::string &idRoom, const std::string &idProcessor, 
 
 void house::showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->showRulesFrom(idProcessor);
     } catch (const roomNotFound &ex) {
@@ -182,7 +182,7 @@ void
 house::associateDeviceToProcessor(const std::string &idRoom, const std::string &idProcessor,
                                   const std::string &idDevice) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
         foundRoom->asocDeviceToProcessor(idProcessor, idDevice);
     } catch (const roomNotFound &ex) {
@@ -194,7 +194,7 @@ void
 house::disaDeviceFromProcessor(const std::string &idRoom, const std::string &idProcessor,
                                const std::string &idDevice) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundroom = *roomIt;
         foundroom->disaDeviceFromProcessor(idProcessor, idDevice);
     } catch (const roomNotFound &ex) {
@@ -204,7 +204,7 @@ house::disaDeviceFromProcessor(const std::string &idRoom, const std::string &idP
 
 void house::sendCommandTo(const std::string &idRoom, const std::string &idDevice, const std::string &newCommand) const {
     try {
-        auto roomIt = findRoomById(idRoom);
+        auto roomIt = findRoomItByID(idRoom);
         auto &foundroom = *roomIt;
         foundroom->sendCommandTo(idDevice, newCommand);
     } catch (const roomNotFound &ex) {
@@ -212,7 +212,7 @@ void house::sendCommandTo(const std::string &idRoom, const std::string &idDevice
     }
 }
 
-std::vector<std::unique_ptr<room>>::const_iterator house::findRoomById(const std::string &idRoom) const {
+std::vector<std::unique_ptr<room>>::const_iterator house::findRoomItByID(const std::string &idRoom) const {
     auto roomIt = std::find_if(houseRooms.begin(), houseRooms.end(),
                                [idRoom](const auto &obj) { return obj->getId() == idRoom; });
     if (roomIt == houseRooms.end())
