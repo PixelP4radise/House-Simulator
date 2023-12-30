@@ -19,7 +19,7 @@
 #include"./sensors/temperatureSensor.h"
 #include "./devices/heater.h"
 #include "./devices/lamp.h"
-#include "./devices/refrigerator.h"
+#include "./devices/cooler.h"
 #include "./devices/sprinkler.h"
 #include "./processor.h"
 #include "./propertys/humidity.h"
@@ -56,6 +56,15 @@ public:
 
     [[nodiscard]]
     std::string getId() const override;
+
+    [[nodiscard]]
+    size_t getNSensors() const;
+
+    [[nodiscard]]
+    size_t getNProcessors() const;
+
+    [[nodiscard]]
+    size_t getNDevices() const;
 
     [[nodiscard]]
     std::string describe() const override;

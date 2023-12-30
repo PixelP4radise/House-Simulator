@@ -30,8 +30,8 @@ add_executable(House_Simulator main.cpp
         headerFiles/rules/within.h
         sourceFiles/rules/outsideOf.cpp
         headerFiles/rules/outsideOf.h
-        sourceFiles/devices/refrigerator.cpp
-        headerFiles/devices/refrigerator.h
+        sourceFiles/devices/cooler.cpp
+        headerFiles/devices/cooler.h
         sourceFiles/devices/heater.cpp
         headerFiles/devices/heater.h
         sourceFiles/devices/sprinkler.cpp

@@ -7,6 +7,13 @@
 
 #include <iostream>
 #include "../houseElements.h"
+#include "../propertys/humidity.h"
+#include "../propertys/luminosity.h"
+#include "../propertys/radiation.h"
+#include "../propertys/smoke.h"
+#include "../propertys/sound.h"
+#include "../propertys/temperature.h"
+#include "../propertys/vibration.h"
 
 class devices : public houseElements {
 private:

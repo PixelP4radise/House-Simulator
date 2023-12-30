@@ -9,6 +9,7 @@
 
 class lamp : public devices {
 private:
+    std::weak_ptr<luminosity> lumWPtr;
 public:
     explicit lamp(std::string command = "desliga");
 

@@ -29,6 +29,18 @@ std::string room::getId() const {
     return "r" + std::to_string(getNum());
 }
 
+size_t room::getNSensors() const {
+    return vectorSensors.size();
+}
+
+size_t room::getNProcessors() const {
+    return vectorProcessors.size();
+}
+
+size_t room::getNDevices() const {
+    return vectorDevices.size();
+}
+
 std::string room::describe() const {
     std::string description{};
     for (auto &sensor: vectorSensors)
@@ -95,8 +107,8 @@ void room::addDevice(const std::string &device) {
             ptr = std::make_shared<heater>();
         else if (device == "lamp")
             ptr = std::make_shared<lamp>();
-        else if (device == "refrigerator")
-            ptr = std::make_shared<refrigerator>();
+        else if (device == "cooler")
+            ptr = std::make_shared<cooler>();
         else if (device == "sprinkler")
             ptr = std::make_shared<sprinkler>();
         else

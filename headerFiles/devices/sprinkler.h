@@ -9,6 +9,9 @@
 
 class sprinkler : public devices {
 private:
+    std::weak_ptr<humidity> humidWPtr;
+    std::weak_ptr<vibration> vibWPtr;
+    std::weak_ptr<smoke> smokeWPtr;
 public:
     explicit sprinkler(std::string command = "desliga");
 
