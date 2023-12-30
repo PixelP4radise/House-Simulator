@@ -37,38 +37,47 @@ public:
     [[nodiscard]]
     unsigned int getNCollums() const;
 
-    void newComponent(const std::string &id, char type, const std::string &command);
+    void newComponent(const std::string &idRoom, char type, const std::string &command) const;
 
-    void removeComponent(const std::string &idOfRoom, char type, const std::string &idOfComponent);
-
-    [[nodiscard]]
-    std::string describeRoom(const std::string &id) const;
+    void removeComponent(const std::string &idRoom, char type, const std::string &idComponent) const;
 
     [[nodiscard]]
-    std::string showPropertysOfRoom(const std::string &id) const;
+    std::string describeRoom(const std::string &idRoom) const;
 
-    void changePropertyOfRoom(const std::string &id, const std::string &propertyTobeChanged, int valueToBe);
+    [[nodiscard]]
+    std::string showPropertysOfRoom(const std::string &idRoom) const;
 
-    void
-    addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor, const std::string &type,
-            int parameter1);
-
-    void removeRuleFrom(const std::string &id, const std::string &idProcessor, const std::string &idRule);
+    void changePropertyOfRoom(const std::string &idRoom, const std::string &propertyTobeChanged, int valueToBe) const;
 
     void
-    addRule(const std::string &id, const std::string &idProcessor, const std::string &idSensor, const std::string &type,
+    addRule(const std::string &idRoom, const std::string &idProcessor, const std::string &idSensor,
+            const std::string &type,
+            int parameter1) const;
+
+    void
+    addRule(const std::string &idRoom, const std::string &idProcessor, const std::string &idSensor,
+            const std::string &type,
             int parameter1,
-            int parameter2);
+            int parameter2) const;
 
-    void changeCommand(const std::string &id, const std::string &idProcessor, const std::string &newCommand);
+    void removeRuleFrom(const std::string &idRoom, const std::string &idProcessor, const std::string &idRule) const;
 
-    void showRulesFrom(const std::string &id, const std::string &idProcessor);
 
-    void associateDeviceToProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice);
+    void changeCommand(const std::string &idRoom, const std::string &idProcessor, const std::string &newCommand) const;
 
-    void disaDeviceFromProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice);
+    void showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const;
 
-    void sendCommandTo(const std::string &id, const std::string &idDevice, const std::string &newCommand);
+    void
+    associateDeviceToProcessor(const std::string &idRoom, const std::string &idProcessor,
+                               const std::string &idDevice) const;
+
+    void
+    disaDeviceFromProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice) const;
+
+    void sendCommandTo(const std::string &id, const std::string &idDevice, const std::string &newCommand) const;
+
+    [[nodiscard]]
+    std::vector<std::unique_ptr<room>>::const_iterator findRoomById(const std::string &idRoom) const;
 };
 
 
