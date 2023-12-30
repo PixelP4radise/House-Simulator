@@ -75,3 +75,19 @@ void processor::associateDevice(const std::shared_ptr<devices> &toBeAsoc) {
     std::weak_ptr<devices> weakPtr = toBeAsoc;
     processorOutput.push_back(weakPtr);
 }
+
+void processor::disassociateDevice(const std::string &idDevice) {
+    auto deviceIt = std::find_if(processorOutput.begin(), processorOutput.end(), [idDevice](const auto &obj) {
+        auto sharedPtr = obj.lock();
+        if (sharedPtr)
+            return sharedPtr->getId() == idDevice;
+        throw deviceNotFound();
+    });
+    try {
+        if (deviceIt == processorOutput.end())
+            throw deviceNotFound();
+        processorOutput.erase(deviceIt);
+    } catch (const deviceNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

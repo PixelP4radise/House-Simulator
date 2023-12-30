@@ -15,5 +15,5 @@ std::string rule::describeSensor() const {
     auto sensor = detector.lock();
     if (sensor)
         return sensor->describe();
-    //mandar o throw caso ele nao de lock
+    throw acessError();
 }

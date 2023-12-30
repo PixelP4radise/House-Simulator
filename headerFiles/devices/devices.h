@@ -10,11 +10,13 @@
 
 class devices : public houseElements {
 private:
-    std::string comando;
+    std::string command;
     unsigned int turnedOnFor;
 public:
     [[nodiscard]]
     std::string getId() const override;
+
+    void setCommand(const std::string &newCommand);
 };
 
 

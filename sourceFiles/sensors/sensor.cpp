@@ -14,5 +14,5 @@ int sensor::getValue() const {
     auto sharedProp = prop.lock();
     if (sharedProp)
         return sharedProp->getValue();
-    // se nao tiver nada... fazer throw
+    throw acessError();
 }

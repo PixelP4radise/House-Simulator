@@ -65,6 +65,10 @@ public:
     void showRulesFrom(const std::string &id, const std::string &idProcessor);
 
     void associateDeviceToProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice);
+
+    void disaDeviceFromProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice);
+
+    void sendCommandTo(const std::string &id, const std::string &idDevice, const std::string &newCommand);
 };
 
 

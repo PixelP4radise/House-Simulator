@@ -13,6 +13,7 @@
 #include "../propertys/sound.h"
 #include "../propertys/temperature.h"
 #include "../propertys/vibration.h"
+#include "../../exceptions/acessError.h"
 
 class sensor : public houseElements {
 private:

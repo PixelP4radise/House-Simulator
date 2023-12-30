@@ -264,3 +264,30 @@ void room::asocDeviceToProcessor(const std::string &idProcessor, const std::stri
         std::cout << ex.what() << std::endl;
     }
 }
+
+void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) {
+    auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
+                                    [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
+
+    try {
+        if (processorIt == vectorProcessors.end())
+            throw processorNotFound();
+        auto &processor = *processorIt;
+        processor->disassociateDevice(idDevice);
+    } catch (const processorNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void room::sendCommandTo(const std::string &idDevice, const std::string &newCommand) {
+    auto deviceIt = std::find_if(vectorDevices.begin(), vectorDevices.end(),
+                                 [idDevice](const auto &obj) { return obj->getId() == idDevice; });
+    try {
+        if (deviceIt == vectorDevices.end())
+            throw deviceNotFound();
+        auto &device = *deviceIt;
+        device->setCommand(newCommand);
+    } catch (const deviceNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

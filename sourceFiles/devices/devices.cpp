@@ -7,3 +7,7 @@
 std::string devices::getId() const {
     return "d" + getNum();
 }
+
+void devices::setCommand(const std::string &newCommand) {
+    command = newCommand;
+}

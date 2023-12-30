@@ -230,3 +230,28 @@ house::associateDeviceToProcessor(const std::string &id, const std::string &idPr
         std::cout << ex.what() << std::endl;
     }
 }
+
+void
+house::disaDeviceFromProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it == houseRooms.end())
+            throw roomNotFound();
+        auto &foundroom = *it;
+        foundroom->disaDeviceFromProcessor(idProcessor, idDevice);
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void house::sendCommandTo(const std::string &id, const std::string &idDevice, const std::string &newCommand) {
+    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
+    try {
+        if (it == houseRooms.end())
+            throw roomNotFound();
+        auto &foundroom = *it;
+        foundroom->sendCommandTo(idDevice, newCommand);
+    } catch (const roomNotFound &ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}

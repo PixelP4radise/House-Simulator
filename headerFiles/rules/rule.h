@@ -14,6 +14,7 @@
 #include "../sensors/smokeSensor.h"
 #include "../sensors/soundSensor.h"
 #include "../sensors/temperatureSensor.h"
+#include "../../exceptions/acessError.h"
 
 class rule : public houseElements {
 private:

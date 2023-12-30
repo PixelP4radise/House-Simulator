@@ -88,6 +88,10 @@ public:
     void showRulesFrom(const std::string &idProcessor);
 
     void asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice);
+
+    void disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice);
+
+    void sendCommandTo(const std::string &idDevice, const std::string &newCommand);
 };
 
 

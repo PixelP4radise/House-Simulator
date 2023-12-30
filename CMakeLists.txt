@@ -77,4 +77,5 @@ add_executable(House_Simulator main.cpp
         exceptions/sensorNotFound.h
         exceptions/ruleNotFound.h
         exceptions/deviceNotFound.h
+        exceptions/acessError.h
 )

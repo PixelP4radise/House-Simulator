@@ -17,6 +17,7 @@
 #include "./rules/within.h"
 #include "../exceptions/unknowRule.h"
 #include "../exceptions/ruleNotFound.h"
+#include "../exceptions/deviceNotFound.h"
 
 class processor : public houseElements {
 private:
@@ -45,6 +46,8 @@ public:
     void showRules();
 
     void associateDevice(const std::shared_ptr<devices> &toBeAsoc);
+
+    void disassociateDevice(const std::string &idDevice);
 };
 
 
