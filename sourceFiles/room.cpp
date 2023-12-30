@@ -129,7 +129,8 @@ void room::changeProperty(const std::string &propertyTobeChanged, int valueToBe)
 }
 
 void
-room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1) {
+room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
+              int parameter1) const {
     try {
         auto processadorIt = findProcessorItById(idProcessor);
         auto sensorIt = findSensorItById(idSensor);
@@ -144,7 +145,7 @@ room::addRule(const std::string &idProcessor, const std::string &idSensor, const
 }
 
 void room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1,
-                   int parameter2) {
+                   int parameter2) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto sensorIt = findSensorItById(idSensor);
@@ -158,7 +159,7 @@ void room::addRule(const std::string &idProcessor, const std::string &idSensor, 
     }
 }
 
-void room::removeRuleFrom(const std::string &idProcessor, const std::string &idRule) {
+void room::removeRuleFrom(const std::string &idProcessor, const std::string &idRule) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto &processor = *processorIt;
@@ -168,7 +169,7 @@ void room::removeRuleFrom(const std::string &idProcessor, const std::string &idR
     }
 }
 
-void room::changeCommand(const std::string &idProcessor, const std::string &newCommand) {
+void room::changeCommand(const std::string &idProcessor, const std::string &newCommand) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto &processor = *processorIt;
@@ -178,7 +179,7 @@ void room::changeCommand(const std::string &idProcessor, const std::string &newC
     }
 }
 
-void room::showRulesFrom(const std::string &idProcessor) {
+void room::showRulesFrom(const std::string &idProcessor) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto &processor = *processorIt;
@@ -188,7 +189,7 @@ void room::showRulesFrom(const std::string &idProcessor) {
     }
 }
 
-void room::asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) {
+void room::asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto deviceIt = findDeviceItById(idDevice);
@@ -202,7 +203,7 @@ void room::asocDeviceToProcessor(const std::string &idProcessor, const std::stri
     }
 }
 
-void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) {
+void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto &processor = *processorIt;
@@ -212,7 +213,7 @@ void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::st
     }
 }
 
-void room::sendCommandTo(const std::string &idDevice, const std::string &newCommand) {
+void room::sendCommandTo(const std::string &idDevice, const std::string &newCommand) const {
     try {
         auto deviceIt = findDeviceItById(idDevice);
         auto &device = *deviceIt;
@@ -222,7 +223,7 @@ void room::sendCommandTo(const std::string &idDevice, const std::string &newComm
     }
 }
 
-std::vector<std::shared_ptr<sensor>>::iterator room::findSensorItById(const std::string &idSensor) {
+std::vector<std::shared_ptr<sensor>>::const_iterator room::findSensorItById(const std::string &idSensor) const {
     auto sensorIt = std::find_if(vectorSensors.begin(), vectorSensors.end(),
                                  [idSensor](const auto &obj) { return obj->getId() == idSensor; });
     if (sensorIt == vectorSensors.end())
@@ -230,7 +231,7 @@ std::vector<std::shared_ptr<sensor>>::iterator room::findSensorItById(const std:
     return sensorIt;
 }
 
-std::vector<std::shared_ptr<devices>>::iterator room::findDeviceItById(const std::string &idDevice) {
+std::vector<std::shared_ptr<devices>>::const_iterator room::findDeviceItById(const std::string &idDevice) const {
     auto deviceIt = std::find_if(vectorDevices.begin(), vectorDevices.end(),
                                  [idDevice](const auto &obj) { return obj->getId() == idDevice; });
     if (deviceIt == vectorDevices.end())
@@ -238,7 +239,8 @@ std::vector<std::shared_ptr<devices>>::iterator room::findDeviceItById(const std
     return deviceIt;
 }
 
-std::vector<std::shared_ptr<processor>>::iterator room::findProcessorItById(const std::string &idProcessor) {
+std::vector<std::shared_ptr<processor>>::const_iterator
+room::findProcessorItById(const std::string &idProcessor) const {
     auto processorIt = std::find_if(vectorProcessors.begin(), vectorProcessors.end(),
                                     [idProcessor](const auto &obj) { return obj->getId() == idProcessor; });
     if (processorIt == vectorProcessors.end())

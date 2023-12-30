@@ -78,31 +78,31 @@ public:
     void changeProperty(const std::string &propertyTobeChanged, int valueToBe);
 
     void addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
-                 int parameter1);
+                 int parameter1) const;
 
     void addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
-                 int parameter1, int parameter2);
+                 int parameter1, int parameter2) const;
 
-    void removeRuleFrom(const std::string &idProcessor, const std::string &idRule);
+    void removeRuleFrom(const std::string &idProcessor, const std::string &idRule) const;
 
-    void changeCommand(const std::string &idProcessor, const std::string &newCommand);
+    void changeCommand(const std::string &idProcessor, const std::string &newCommand) const;
 
-    void showRulesFrom(const std::string &idProcessor);
+    void showRulesFrom(const std::string &idProcessor) const;
 
-    void asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice);
+    void asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) const;
 
-    void disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice);
+    void disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) const;
 
-    void sendCommandTo(const std::string &idDevice, const std::string &newCommand);
-
-    [[nodiscard]]
-    std::vector<std::shared_ptr<sensor>>::iterator findSensorItById(const std::string &idSensor);
+    void sendCommandTo(const std::string &idDevice, const std::string &newCommand) const;
 
     [[nodiscard]]
-    std::vector<std::shared_ptr<devices>>::iterator findDeviceItById(const std::string &idDevice);
+    std::vector<std::shared_ptr<sensor>>::const_iterator findSensorItById(const std::string &idSensor) const;
 
     [[nodiscard]]
-    std::vector<std::shared_ptr<processor>>::iterator findProcessorItById(const std::string &idProcessor);
+    std::vector<std::shared_ptr<devices>>::const_iterator findDeviceItById(const std::string &idDevice) const;
+
+    [[nodiscard]]
+    std::vector<std::shared_ptr<processor>>::const_iterator findProcessorItById(const std::string &idProcessor) const;
 };
 
 
