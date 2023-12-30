@@ -13,7 +13,11 @@ std::unique_ptr<rule> lessThan::clone() const {
     return std::make_unique<lessThan>(*this);
 }
 
-void lessThan::evaluate() {}
+void lessThan::evaluate() {
+    if (getFirstParameter() > getSensorValue())
+        setState(true);
+    setState(false);
+}
 
 std::string lessThan::describe() const {
     return "Less than " + getId() + ' ' + describeSensor();

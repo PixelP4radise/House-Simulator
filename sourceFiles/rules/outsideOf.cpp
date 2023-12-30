@@ -14,7 +14,15 @@ std::unique_ptr<rule> outsideOf::clone() const {
     return std::make_unique<outsideOf>(*this);
 }
 
-void outsideOf::evaluate() {}
+int outsideOf::getSecondParameter() const {
+    return secondParameter;
+}
+
+void outsideOf::evaluate() {
+    if (getSensorValue() < getFirstParameter() or getSensorValue() > getSecondParameter())
+        setState(true);
+    setState(false);
+}
 
 std::string outsideOf::describe() const {
     return "Outside " + getId() + ' ' + describeSensor();

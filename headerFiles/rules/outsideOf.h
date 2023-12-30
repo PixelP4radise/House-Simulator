@@ -9,7 +9,7 @@
 
 class outsideOf : public rule {
 private:
-    unsigned int secondParameter;
+    int secondParameter;
 public:
 
     explicit outsideOf(const std::shared_ptr<sensor> &sensorPtr, int parameter1, int parameter2);
@@ -19,6 +19,9 @@ public:
     std::unique_ptr<rule> clone() const override;
 
     ~outsideOf() override = default;
+
+    [[nodiscard]]
+    int getSecondParameter() const;
 
     void evaluate() override;
 

@@ -26,6 +26,7 @@ public:
 
     ~rule() override = default;
 
+    [[nodiscard]]
     virtual std::unique_ptr<rule> clone() const = 0;
 
     [[nodiscard]]
@@ -35,6 +36,17 @@ public:
 
     [[nodiscard]]
     std::string describeSensor() const;
+
+    [[nodiscard]]
+    bool getState() const;
+
+    void setState(bool newState);
+
+    [[nodiscard]]
+    int getFirstParameter() const;
+
+    [[nodiscard]]
+    int getSensorValue() const;
 };
 
 

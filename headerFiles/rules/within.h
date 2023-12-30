@@ -9,7 +9,7 @@
 
 class within : public rule {
 private:
-    unsigned int secondParameter;
+    int secondParameter;
 public:
     explicit within(const std::shared_ptr<sensor> &sensorPtr, int parameter1, int parameter2);
 
@@ -18,6 +18,9 @@ public:
     std::unique_ptr<rule> clone() const override;
 
     ~within() override = default;
+
+    [[nodiscard]]
+    int getSecondParameter() const;
 
     void evaluate() override;
 

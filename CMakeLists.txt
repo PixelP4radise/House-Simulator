@@ -79,4 +79,5 @@ add_executable(House_Simulator main.cpp
         exceptions/deviceNotFound.h
         exceptions/acessError.h
         exceptions/nameAlreadyExists.h
+        exceptions/nameNotFound.h
 )

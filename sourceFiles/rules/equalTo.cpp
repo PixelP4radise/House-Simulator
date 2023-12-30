@@ -12,7 +12,11 @@ std::unique_ptr<rule> equalTo::clone() const {
     return std::make_unique<equalTo>(*this);
 }
 
-void equalTo::evaluate() {}
+void equalTo::evaluate() {
+    if (getFirstParameter() == getSensorValue())
+        setState(true);
+    setState(false);
+}
 
 std::string equalTo::describe() const {
     return "equal to " + getId() + ' ' + describeSensor();

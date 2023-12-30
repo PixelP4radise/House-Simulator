@@ -13,7 +13,15 @@ std::unique_ptr<rule> within::clone() const {
     return std::make_unique<within>(*this);
 }
 
-void within::evaluate() {}
+int within::getSecondParameter() const {
+    return secondParameter;
+}
+
+void within::evaluate() {
+    if (getSensorValue() > getFirstParameter() and getSensorValue() < getSecondParameter())
+        setState(true);
+    setState(false);
+}
 
 std::string within::describe() const {
     return "In between " + getId() + ' ' + describeSensor();

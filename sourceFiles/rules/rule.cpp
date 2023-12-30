@@ -20,3 +20,22 @@ std::string rule::describeSensor() const {
         return sensor->describe();
     throw acessError();
 }
+
+bool rule::getState() const {
+    return state;
+}
+
+void rule::setState(bool newState) {
+    state = newState;
+}
+
+int rule::getFirstParameter() const {
+    return firstParameter;
+}
+
+int rule::getSensorValue() const {
+    auto sensorPtr = detector.lock();
+    if (sensorPtr)
+        return sensorPtr->getValue();
+    throw acessError();
+}

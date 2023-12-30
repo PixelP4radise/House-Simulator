@@ -13,7 +13,11 @@ std::unique_ptr<rule> greaterThan::clone() const {
     return std::make_unique<greaterThan>(*this);
 }
 
-void greaterThan::evaluate() {}
+void greaterThan::evaluate() {
+    if (getFirstParameter() < getSensorValue())
+        setState(true);
+    setState(false);
+}
 
 std::string greaterThan::describe() const {
     return "Greater than " + getId() + ' ' + describeSensor();
