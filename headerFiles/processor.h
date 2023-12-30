@@ -12,7 +12,7 @@
 #include "./devices/devices.h"
 #include "./rules/equalTo.h"
 #include "./rules/greaterThan.h"
-#include "./rules/lesserThan.h"
+#include "./rules/lessThan.h"
 #include "./rules/outsideOf.h"
 #include "./rules/within.h"
 #include "../exceptions/unknowRule.h"
@@ -26,6 +26,8 @@ private:
     std::vector<std::weak_ptr<devices>> processorOutput;
 public:
     explicit processor(std::string command);
+
+    processor(const processor &source);
 
     ~processor() override = default;
 

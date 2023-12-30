@@ -22,8 +22,8 @@ add_executable(House_Simulator main.cpp
         headerFiles/rules/rule.h
         sourceFiles/rules/equalTo.cpp
         headerFiles/rules/equalTo.h
-        sourceFiles/rules/lesserThan.cpp
-        headerFiles/rules/lesserThan.h
+        sourceFiles/rules/lessThan.cpp
+        headerFiles/rules/lessThan.h
         sourceFiles/rules/greaterThan.cpp
         headerFiles/rules/greaterThan.h
         sourceFiles/rules/within.cpp

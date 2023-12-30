@@ -9,6 +9,12 @@ processor::processor(std::string command) : command(std::move(command)) {
     num = counter++;
 }
 
+processor::processor(const processor &source) : command(source.command), processorOutput(source.processorOutput) {
+    vectorRules.reserve(source.vectorRules.size());
+    for (const auto &rulePtr: source.vectorRules)
+        vectorRules.push_back(rulePtr->clone());
+}
+
 std::string processor::getId() const {
     return "p" + getNum();
 }
@@ -23,7 +29,7 @@ void processor::addRule(const std::shared_ptr<sensor> &sharedPtr, const std::str
         if (type == "equal_to")
             ptr = std::make_unique<equalTo>(sharedPtr, parameter1);
         else if (type == "less_than")
-            ptr = std::make_unique<lesserThan>(sharedPtr, parameter1);
+            ptr = std::make_unique<lessThan>(sharedPtr, parameter1);
         else if (type == "greater_than")
             ptr = std::make_unique<greaterThan>(sharedPtr, parameter1);
         else

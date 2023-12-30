@@ -26,6 +26,8 @@ public:
 
     ~rule() override = default;
 
+    virtual std::unique_ptr<rule> clone() const = 0;
+
     [[nodiscard]]
     std::string getId() const override;
 

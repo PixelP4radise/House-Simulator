@@ -6,6 +6,13 @@
 
 greaterThan::greaterThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : rule(sensorPtr, parameter1) {}
 
+
+greaterThan::greaterThan(const greaterThan &source) : rule(source) {}
+
+std::unique_ptr<rule> greaterThan::clone() const {
+    return std::make_unique<greaterThan>(*this);
+}
+
 void greaterThan::evaluate() {}
 
 std::string greaterThan::describe() const {

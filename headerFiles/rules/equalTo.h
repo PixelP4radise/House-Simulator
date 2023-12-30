@@ -11,6 +11,10 @@ class equalTo : public rule {
 public:
     explicit equalTo(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
+    equalTo(const equalTo &source);
+
+    std::unique_ptr<rule> clone() const override;
+
     ~equalTo() override = default;
 
     void evaluate() override;

@@ -6,6 +6,12 @@
 
 equalTo::equalTo(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : rule(sensorPtr, parameter1) {}
 
+equalTo::equalTo(const equalTo &source) : rule(source) {}
+
+std::unique_ptr<rule> equalTo::clone() const {
+    return std::make_unique<equalTo>(*this);
+}
+
 void equalTo::evaluate() {}
 
 std::string equalTo::describe() const {
