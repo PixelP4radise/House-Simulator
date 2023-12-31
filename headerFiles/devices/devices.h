@@ -20,7 +20,7 @@ private:
     std::string command;
     unsigned int ticksSinceLastCommand;
 public:
-    explicit devices(std::string command = "desliga");
+    explicit devices(std::string command = "off");
 
     ~devices() override = default;
 

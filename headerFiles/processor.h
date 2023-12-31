@@ -60,6 +60,13 @@ public:
 
     [[nodiscard]]
     std::vector<std::unique_ptr<rule>>::const_iterator findRuleItById(const std::string &idRule) const;
+
+    [[nodiscard]]
+    std::string getProcessorCommand() const;
+
+    void sendCommandToDevices() const;
+
+    void carryOut() const;
 };
 
 

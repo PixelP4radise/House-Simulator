@@ -4,7 +4,9 @@
 
 #include "../../headerFiles/devices/sprinkler.h"
 
-sprinkler::sprinkler(std::string command) : devices(std::move(command)) {}
+sprinkler::sprinkler(const std::shared_ptr<property> &humidWPtr, const std::shared_ptr<property> &vibWPtrm,
+                     const std::shared_ptr<property> &smokeWPtr)
+        : devices(), humidWPtr(humidWPtr), vibWPtr(vibWPtrm), smokeWPtr(smokeWPtr) {}
 
 std::string sprinkler::describe() const {
     return getId() + " Sprinkler" + getCommand();

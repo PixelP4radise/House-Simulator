@@ -9,11 +9,12 @@
 
 class sprinkler : public devices {
 private:
-    std::weak_ptr<humidity> humidWPtr;
-    std::weak_ptr<vibration> vibWPtr;
-    std::weak_ptr<smoke> smokeWPtr;
+    std::weak_ptr<property> humidWPtr;
+    std::weak_ptr<property> vibWPtr;
+    std::weak_ptr<property> smokeWPtr;
 public:
-    explicit sprinkler(std::string command = "desliga");
+    explicit sprinkler(const std::shared_ptr<property> &humidWPtr, const std::shared_ptr<property> &vibWPtrm,
+                       const std::shared_ptr<property> &smokeWPtr);
 
     ~sprinkler() override = default;
 

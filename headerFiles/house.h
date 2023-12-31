@@ -92,6 +92,8 @@ public:
     void removeProcessorFromMemory(const std::string &name);
 
     void showProcessorsFromMemory() const;
+
+    void carryOut() const;
 };
 
 

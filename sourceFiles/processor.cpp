@@ -4,7 +4,7 @@
 
 #include "../headerFiles/processor.h"
 
-processor::processor(std::string command, std::string roomId) : command(std::move(command)), roomId(roomId) {
+processor::processor(std::string command, std::string roomId) : command(std::move(command)), roomId(std::move(roomId)) {
     static unsigned int counter{};
     num = counter++;
 }
@@ -115,4 +115,25 @@ std::vector<std::unique_ptr<rule>>::const_iterator processor::findRuleItById(con
     if (ruleIt == vectorRules.end())
         throw ruleNotFound();
     return ruleIt;
+}
+
+std::string processor::getProcessorCommand() const {
+    return command;
+}
+
+void processor::sendCommandToDevices() const {
+    for (auto &device: processorOutput) {
+        auto devicePtr = device.lock();
+        if (devicePtr)
+            devicePtr->setCommand(getProcessorCommand());
+    }
+}
+
+void processor::carryOut() const {
+    for (auto &rule: vectorRules) {
+        rule->evaluate();
+        if (not rule->getState() or vectorRules.empty())
+            return;
+    }
+    sendCommandToDevices();
 }

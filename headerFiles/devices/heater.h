@@ -10,11 +10,11 @@
 
 class heater : public devices {
 private:
-    std::weak_ptr<temperature> tempWPtr;
-    std::weak_ptr<sound> soundWPtr;
+    std::weak_ptr<property> tempWPtr;
+    std::weak_ptr<property> soundWPtr;
 public:
 
-    explicit heater(std::string command = "desliga");
+    explicit heater(const std::shared_ptr<property> &tempWPtr, const std::shared_ptr<property> &soundWPtr);
 
     ~heater() override = default;
 

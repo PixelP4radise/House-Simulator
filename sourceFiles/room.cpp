@@ -104,13 +104,14 @@ void room::addDevice(const std::string &device) {
     try {
         std::shared_ptr<devices> ptr{};
         if (device == "heater")
-            ptr = std::make_shared<heater>();
+            ptr = std::make_shared<heater>(roomPropertys.at("temperature"), roomPropertys.at("sound"));
         else if (device == "lamp")
-            ptr = std::make_shared<lamp>();
+            ptr = std::make_shared<lamp>(roomPropertys.at("light"));
         else if (device == "cooler")
-            ptr = std::make_shared<cooler>();
+            ptr = std::make_shared<cooler>(roomPropertys.at("temperature"), roomPropertys.at("sound"));
         else if (device == "sprinkler")
-            ptr = std::make_shared<sprinkler>();
+            ptr = std::make_shared<sprinkler>(roomPropertys.at("humidity"), roomPropertys.at("vibration"),
+                                              roomPropertys.at("smoke"));
         else
             throw invalidDeviceType();
         vectorDevices.push_back(std::move(ptr));
@@ -181,7 +182,7 @@ void room::removeRuleFrom(const std::string &idProcessor, const std::string &idR
     }
 }
 
-void room::changeCommand(const std::string &idProcessor, const std::string &newCommand) const {
+void room::changeCommandFromProcessor(const std::string &idProcessor, const std::string &newCommand) const {
     try {
         auto processorIt = findProcessorItById(idProcessor);
         auto &processor = *processorIt;
@@ -225,7 +226,7 @@ void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::st
     }
 }
 
-void room::sendCommandTo(const std::string &idDevice, const std::string &newCommand) const {
+void room::sendCommandToDevice(const std::string &idDevice, const std::string &newCommand) const {
     try {
         auto deviceIt = findDeviceItById(idDevice);
         auto &device = *deviceIt;
@@ -274,4 +275,11 @@ void room::restoreProcessor(const processor &toBeRestored) {
     } catch (const processorNotFound &ex) {
     }
     vectorProcessors.push_back(std::make_shared<processor>(toBeRestored));
+}
+
+void room::carryOut() const {
+    for (auto &processorPtr: vectorProcessors)
+        processorPtr->carryOut();
+    for (auto &devicePtr: vectorDevices)
+        devicePtr->carryOut();
 }

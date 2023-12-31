@@ -9,10 +9,10 @@
 
 class cooler : public devices {
 private:
-    std::weak_ptr<temperature> tempWPtr;
-    std::weak_ptr<sound> soundWPtr;
+    std::weak_ptr<property> tempWPtr;
+    std::weak_ptr<property> soundWPtr;
 public:
-    explicit cooler(std::string command = "desliga");
+    explicit cooler(const std::shared_ptr<property> &tempWPtr, const std::shared_ptr<property> &soundWPtr);
 
     ~cooler() override = default;
 

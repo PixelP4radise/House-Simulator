@@ -4,7 +4,8 @@
 
 #include "../../headerFiles/devices/heater.h"
 
-heater::heater(std::string command) : devices(std::move(command)) {}
+heater::heater(const std::shared_ptr<property> &tempWPtr, const std::shared_ptr<property> &soundWPtr)
+        : devices(), tempWPtr(tempWPtr), soundWPtr(soundWPtr) {}
 
 std::string heater::describe() const {
     return getId() + " Heater " + getCommand();

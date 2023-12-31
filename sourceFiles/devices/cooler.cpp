@@ -4,7 +4,8 @@
 
 #include "../../headerFiles/devices/cooler.h"
 
-cooler::cooler(std::string command) : devices(std::move(command)) {}
+cooler::cooler(const std::shared_ptr<property> &tempWPtr, const std::shared_ptr<property> &soundWPtr)
+        : devices(), tempWPtr(tempWPtr), soundWPtr(soundWPtr) {}
 
 std::string cooler::describe() const {
     return getId() + " Refrigerator" + getCommand();

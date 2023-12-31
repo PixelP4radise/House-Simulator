@@ -94,7 +94,7 @@ public:
 
     void removeRuleFrom(const std::string &idProcessor, const std::string &idRule) const;
 
-    void changeCommand(const std::string &idProcessor, const std::string &newCommand) const;
+    void changeCommandFromProcessor(const std::string &idProcessor, const std::string &newCommand) const;
 
     void showRulesFrom(const std::string &idProcessor) const;
 
@@ -102,7 +102,7 @@ public:
 
     void disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) const;
 
-    void sendCommandTo(const std::string &idDevice, const std::string &newCommand) const;
+    void sendCommandToDevice(const std::string &idDevice, const std::string &newCommand) const;
 
     [[nodiscard]]
     std::vector<std::shared_ptr<sensor>>::const_iterator findSensorItById(const std::string &idSensor) const;
@@ -117,6 +117,8 @@ public:
     std::unique_ptr<processor> copyProcessor(const std::string &idProcessor) const;
 
     void restoreProcessor(const processor &toBeRestored);
+
+    void carryOut() const;
 };
 
 

@@ -9,9 +9,9 @@
 
 class lamp : public devices {
 private:
-    std::weak_ptr<luminosity> lumWPtr;
+    std::weak_ptr<property> lumWPtr;
 public:
-    explicit lamp(std::string command = "desliga");
+    explicit lamp(const std::shared_ptr<property> &lumWPtr);
 
     ~lamp() override = default;
 

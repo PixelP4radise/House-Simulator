@@ -162,7 +162,7 @@ house::changeCommand(const std::string &idRoom, const std::string &idProcessor, 
     try {
         auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
-        foundRoom->changeCommand(idProcessor, newCommand);
+        foundRoom->changeCommandFromProcessor(idProcessor, newCommand);
     } catch (const roomNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
@@ -206,7 +206,7 @@ void house::sendCommandTo(const std::string &idRoom, const std::string &idDevice
     try {
         auto roomIt = findRoomItByID(idRoom);
         auto &foundroom = *roomIt;
-        foundroom->sendCommandTo(idDevice, newCommand);
+        foundroom->sendCommandToDevice(idDevice, newCommand);
     } catch (const roomNotFound &ex) {
         std::cout << ex.what() << std::endl;
     }
@@ -281,4 +281,9 @@ std::string house::describeHouse() const {
                 std::to_string(roomPtr->getNDevices()) + '\n';
     }
     return description;
+}
+
+void house::carryOut() const {
+    for (auto &roomPtr: houseRooms)
+        roomPtr->carryOut();
 }
