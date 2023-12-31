@@ -20,7 +20,8 @@ int within::getSecondParameter() const {
 void within::evaluate() {
     if (getSensorValue() > getFirstParameter() and getSensorValue() < getSecondParameter())
         setState(true);
-    setState(false);
+    else
+        setState(false);
 }
 
 std::string within::describe() const {

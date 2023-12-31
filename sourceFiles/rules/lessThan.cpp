@@ -16,7 +16,8 @@ std::unique_ptr<rule> lessThan::clone() const {
 void lessThan::evaluate() {
     if (getFirstParameter() > getSensorValue())
         setState(true);
-    setState(false);
+    else
+        setState(false);
 }
 
 std::string lessThan::describe() const {

@@ -21,7 +21,8 @@ int outsideOf::getSecondParameter() const {
 void outsideOf::evaluate() {
     if (getSensorValue() < getFirstParameter() or getSensorValue() > getSecondParameter())
         setState(true);
-    setState(false);
+    else
+        setState(false);
 }
 
 std::string outsideOf::describe() const {

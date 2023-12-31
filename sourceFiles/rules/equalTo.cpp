@@ -15,7 +15,8 @@ std::unique_ptr<rule> equalTo::clone() const {
 void equalTo::evaluate() {
     if (getFirstParameter() == getSensorValue())
         setState(true);
-    setState(false);
+    else
+        setState(false);
 }
 
 std::string equalTo::describe() const {

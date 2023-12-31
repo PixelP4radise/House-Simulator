@@ -16,7 +16,8 @@ std::unique_ptr<rule> greaterThan::clone() const {
 void greaterThan::evaluate() {
     if (getFirstParameter() < getSensorValue())
         setState(true);
-    setState(false);
+    else
+        setState(false);
 }
 
 std::string greaterThan::describe() const {
