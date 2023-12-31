@@ -6,6 +6,7 @@
 #define HOUSE_SIMULATOR_PROPERTY_H
 
 #include <iostream>
+#include <climits>
 #include "../../exceptions/outOfRangeProperty.h"
 
 class property {
