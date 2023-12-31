@@ -25,6 +25,12 @@ void devices::incticksSinceLastCommand() {
     ++ticksSinceLastCommand;
 }
 
+void devices::zeroTicksSinceLastCommand() {
+    ticksSinceLastCommand = 0;
+}
+
 void devices::setCommand(const std::string &newCommand) {
+    if (getCommand() != newCommand)
+        zeroTicksSinceLastCommand();
     command = newCommand;
 }

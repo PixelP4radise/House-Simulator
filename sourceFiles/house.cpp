@@ -158,7 +158,8 @@ void house::removeRuleFrom(const std::string &idRoom, const std::string &idProce
 }
 
 void
-house::changeCommand(const std::string &idRoom, const std::string &idProcessor, const std::string &newCommand) const {
+house::changeCommandFromProcessor(const std::string &idRoom, const std::string &idProcessor,
+                                  const std::string &newCommand) const {
     try {
         auto roomIt = findRoomItByID(idRoom);
         auto &foundRoom = *roomIt;
@@ -202,7 +203,8 @@ house::disaDeviceFromProcessor(const std::string &idRoom, const std::string &idP
     }
 }
 
-void house::sendCommandTo(const std::string &idRoom, const std::string &idDevice, const std::string &newCommand) const {
+void house::sendCommandToDevice(const std::string &idRoom, const std::string &idDevice,
+                                const std::string &newCommand) const {
     try {
         auto roomIt = findRoomItByID(idRoom);
         auto &foundroom = *roomIt;

@@ -69,7 +69,8 @@ public:
     void removeRuleFrom(const std::string &idRoom, const std::string &idProcessor, const std::string &idRule) const;
 
 
-    void changeCommand(const std::string &idRoom, const std::string &idProcessor, const std::string &newCommand) const;
+    void changeCommandFromProcessor(const std::string &idRoom, const std::string &idProcessor,
+                                    const std::string &newCommand) const;
 
     void showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const;
 
@@ -80,7 +81,8 @@ public:
     void
     disaDeviceFromProcessor(const std::string &id, const std::string &idProcessor, const std::string &idDevice) const;
 
-    void sendCommandTo(const std::string &id, const std::string &idDevice, const std::string &newCommand) const;
+    void
+    sendCommandToDevice(const std::string &idRoom, const std::string &idDevice, const std::string &newCommand) const;
 
     [[nodiscard]]
     std::vector<std::unique_ptr<room>>::const_iterator findRoomItByID(const std::string &idRoom) const;

@@ -32,6 +32,8 @@ public:
 
     void incticksSinceLastCommand();
 
+    void zeroTicksSinceLastCommand();
+
     [[nodiscard]]
     std::string getCommand() const;
 
