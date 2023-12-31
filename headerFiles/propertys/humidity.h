@@ -10,6 +10,8 @@
 class humidity : public property {
 public:
     humidity();
+
+    ~humidity() override = default;
 };
 
 

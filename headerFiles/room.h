@@ -35,7 +35,6 @@
 #include "../exceptions/sensorNotFound.h"
 #include "../exceptions/deviceNotFound.h"
 
-
 class room : public houseElements {
 private:
     unsigned int nLines, nCollums;

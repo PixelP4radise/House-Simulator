@@ -14,8 +14,9 @@ public:
 
     explicit outsideOf(const std::shared_ptr<sensor> &sensorPtr, int parameter1, int parameter2);
 
-    outsideOf(const outsideOf &source);
+    outsideOf(const outsideOf &source) = default;
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~outsideOf() override = default;

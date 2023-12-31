@@ -6,9 +6,6 @@
 
 lessThan::lessThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1) : rule(sensorPtr, parameter1) {}
 
-
-lessThan::lessThan(const lessThan &source) : rule(source) {}
-
 std::unique_ptr<rule> lessThan::clone() const {
     return std::make_unique<lessThan>(*this);
 }

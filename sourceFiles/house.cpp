@@ -224,7 +224,7 @@ std::vector<std::unique_ptr<room>>::const_iterator house::findRoomItByID(const s
 
 void house::saveProcessor(const std::string &idRoom, const std::string &idProcessor, const std::string &name) {
     try {
-        if (processorMemory.size() > 0) {
+        if (not processorMemory.empty()) {
             auto nameIt = processorMemory.find(name);
             if (nameIt != processorMemory.end())
                 throw nameAlreadyExists();

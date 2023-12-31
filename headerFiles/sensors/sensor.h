@@ -30,7 +30,4 @@ public:
     int getValue() const;
 };
 
-// quando crio um sensor tenho que ir buscar a localizacao da propriedade a que ele esta associado
-
-
 #endif //HOUSE_SIMULATOR_SENSOR_H

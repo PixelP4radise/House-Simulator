@@ -10,6 +10,8 @@
 class luminosity : public property {
 public:
     luminosity();
+
+    ~luminosity() override = default;
 };
 
 

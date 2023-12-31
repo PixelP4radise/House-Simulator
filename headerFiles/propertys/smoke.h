@@ -10,6 +10,8 @@
 class smoke : public property {
 public:
     smoke();
+
+    ~smoke() override = default;
 };
 
 

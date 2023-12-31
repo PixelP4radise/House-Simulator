@@ -11,8 +11,9 @@ class lessThan : public rule {
 public:
     explicit lessThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
-    lessThan(const lessThan &source);
+    lessThan(const lessThan &source) = default;
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~lessThan() override = default;

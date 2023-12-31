@@ -11,8 +11,9 @@ class greaterThan : public rule {
 public:
     explicit greaterThan(const std::shared_ptr<sensor> &sensorPtr, int parameter1);
 
-    greaterThan(const greaterThan &source);
+    greaterThan(const greaterThan &source) = default;
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~greaterThan() override = default;

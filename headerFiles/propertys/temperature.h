@@ -11,6 +11,8 @@
 class temperature : public property {
 public:
     temperature();
+
+    ~temperature() override = default;
 };
 
 

@@ -13,8 +13,9 @@ private:
 public:
     explicit within(const std::shared_ptr<sensor> &sensorPtr, int parameter1, int parameter2);
 
-    within(const within &source);
+    within(const within &source) = default;
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~within() override = default;
