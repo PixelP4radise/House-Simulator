@@ -16,6 +16,8 @@ public:
 
     ~cooler() override = default;
 
+    void carryOut() override;
+
     [[nodiscard]]
     std::string describe() const override;
 };

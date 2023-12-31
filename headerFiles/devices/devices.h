@@ -18,7 +18,7 @@
 class devices : public houseElements {
 private:
     std::string command;
-    unsigned int turnedOnFor;
+    unsigned int ticksSinceLastCommand;
 public:
     explicit devices(std::string command = "desliga");
 
@@ -28,7 +28,14 @@ public:
     std::string getId() const override;
 
     [[nodiscard]]
+    unsigned int getTicksSinceLastCommand() const;
+
+    void incticksSinceLastCommand();
+
+    [[nodiscard]]
     std::string getCommand() const;
+
+    virtual void carryOut() = 0;
 
     void setCommand(const std::string &newCommand);
 };
