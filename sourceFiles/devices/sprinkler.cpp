@@ -30,11 +30,10 @@ void sprinkler::carryOut() {
             if (getTicksSinceLastCommand() == 1) {
                 smokePtr->setValue(0);
             }
-
         }
         if (getCommand() == "off" and getTicksSinceLastCommand() == 5) {
             vibrationPtr->setValue(vibrationPtr->getValue() - 100);
         }
-        incticksSinceLastCommand();
+        incTicksSinceLastCommand();
     }
 }

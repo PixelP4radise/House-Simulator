@@ -31,6 +31,6 @@ void heater::carryOut() {
             if (getTicksSinceLastCommand() == 0)
                 soundPtr->setValue(soundPtr->getValue() - 5);
         }
-        incticksSinceLastCommand();
+        incTicksSinceLastCommand();
     }
 }
