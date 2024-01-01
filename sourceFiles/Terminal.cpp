@@ -6,7 +6,7 @@
 //
 // Pode ser aumentada com funcionalidades novas (desde que funcionem)
 
-#include "Terminal.h"
+#include "../headerFiles/Terminal.h"
 
 namespace term {
 
@@ -27,11 +27,10 @@ namespace term {
     }
 
 
-
     Window::Window(int x, int y, int w, int h, bool with_border) {
-        if( with_border ) {
+        if (with_border) {
             border = newwin(h, w, y, x);
-            window = newwin(h-2, w-2, y+1, x+1);
+            window = newwin(h - 2, w - 2, y + 1, x + 1);
             box(border, 0, 0);
             wrefresh(border);
         } else {
@@ -40,7 +39,7 @@ namespace term {
         wrefresh(window);
     }
 
-    Window::Window(Window&& win) {
+    Window::Window(Window &&win) {
         border = win.border;
         win.border = NULL;
         window = win.window;
@@ -49,72 +48,74 @@ namespace term {
 
     Window::~Window() {
 
-        if( border!=NULL ) {
+        if (border != NULL) {
             wborder(border, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
             wrefresh(border);
             delwin(border);
         }
-        if( window!=NULL ) {
+        if (window != NULL) {
             delwin(window);
         }
 
     }
 
 
-    Window& Window::operator<<(const std::string& str) {
+    Window &Window::operator<<(const std::string &str) {
         ::wprintw(window, "%s", str.c_str());
         ::wrefresh(window);
         return *this;
     }
 
-    Window& Window::operator<<(const TerminalFormatter& tf) {
+    Window &Window::operator<<(const TerminalFormatter &tf) {
         switch (tf.type) {
             case TerminalFormatter::Type::MOVE:
                 ::wmove(window, tf.y, tf.x);
                 break;
             case TerminalFormatter::Type::COLOR:
                 if (last_color_pair != -1) {
-                    ::wattroff(window,COLOR_PAIR(last_color_pair));
+                    ::wattroff(window, COLOR_PAIR(last_color_pair));
                 }
-                ::wattron(window,COLOR_PAIR(tf.color));
+                ::wattron(window, COLOR_PAIR(tf.color));
                 last_color_pair = tf.color;
                 break;
             case TerminalFormatter::Type::NOCOLOR:
-                ::wattroff(window,COLOR_PAIR(last_color_pair));
+                ::wattroff(window, COLOR_PAIR(last_color_pair));
                 last_color_pair = -1;
                 break;
         }
         return *this;
     }
 
-    Window& Window::operator<<(const int& i) {
-        ::wprintw(window, "%d",i);
-        ::wrefresh(window);
-        return *this;
-    }
-    Window& Window::operator<<(const double& d) {
-        ::wprintw(window, "%f",d);
-        ::wrefresh(window);
-        return *this;
-    }
-    Window& Window::operator<<(const char& c) {
-        ::wprintw(window, "%c",c);
+    Window &Window::operator<<(const int &i) {
+        ::wprintw(window, "%d", i);
         ::wrefresh(window);
         return *this;
     }
 
-    Window& Window::operator>>(char& c) {
+    Window &Window::operator<<(const double &d) {
+        ::wprintw(window, "%f", d);
+        ::wrefresh(window);
+        return *this;
+    }
+
+    Window &Window::operator<<(const char &c) {
+        ::wprintw(window, "%c", c);
+        ::wrefresh(window);
+        return *this;
+    }
+
+    Window &Window::operator>>(char &c) {
         c = ::wgetch(window);
         return *this;
     }
 
-    Window& Window::operator>>(std::string& str) {
+    Window &Window::operator>>(std::string &str) {
         ::noecho();
         ::cbreak();
         ::keypad(window, TRUE);
         int c = ::wgetch(window);
         bool read = false;
-        switch(c) {
+        switch (c) {
             case KEY_UP:
                 str = "KEY_UP";
                 break;
@@ -136,7 +137,7 @@ namespace term {
         ::keypad(window, FALSE);
         ::echo();
 
-        if( !read ) {
+        if (!read) {
             return *this;
         }
 
@@ -161,7 +162,6 @@ namespace term {
     }
 
 
-
     Terminal::Terminal() {
         ::initscr();
         ::start_color();
@@ -171,13 +171,13 @@ namespace term {
         ::endwin();
     }
 
-    Terminal& Terminal::operator<<(const std::string& str) {
+    Terminal &Terminal::operator<<(const std::string &str) {
         ::printw("%s", str.c_str());
         ::refresh();
         return *this;
     }
 
-    Terminal& Terminal::operator<<(const TerminalFormatter& tf) {
+    Terminal &Terminal::operator<<(const TerminalFormatter &tf) {
         switch (tf.type) {
             case TerminalFormatter::Type::MOVE:
                 ::move(tf.y, tf.x);
@@ -197,34 +197,36 @@ namespace term {
         return *this;
     }
 
-    Terminal& Terminal::operator<<(const int& i) {
-        ::printw("%d",i);
-        ::refresh();
-        return *this;
-    }
-    Terminal& Terminal::operator<<(const double& d) {
-        ::printw("%f",d);
-        ::refresh();
-        return *this;
-    }
-    Terminal& Terminal::operator<<(const char& c) {
-        ::printw("%c",c);
+    Terminal &Terminal::operator<<(const int &i) {
+        ::printw("%d", i);
         ::refresh();
         return *this;
     }
 
-    Terminal& Terminal::operator>>(char& c) {
+    Terminal &Terminal::operator<<(const double &d) {
+        ::printw("%f", d);
+        ::refresh();
+        return *this;
+    }
+
+    Terminal &Terminal::operator<<(const char &c) {
+        ::printw("%c", c);
+        ::refresh();
+        return *this;
+    }
+
+    Terminal &Terminal::operator>>(char &c) {
         c = ::getch();
         return *this;
     }
 
-    Terminal& Terminal::operator>>(std::string& str) {
+    Terminal &Terminal::operator>>(std::string &str) {
         ::noecho();
         ::cbreak();
         ::keypad(stdscr, TRUE);
         int c = ::getch();
         bool read = false;
-        switch(c) {
+        switch (c) {
             case KEY_UP:
                 str = "KEY_UP";
                 break;
@@ -246,7 +248,7 @@ namespace term {
         ::keypad(stdscr, FALSE);
         ::echo();
 
-        if( !read ) {
+        if (!read) {
             return *this;
         }
 
@@ -261,7 +263,7 @@ namespace term {
         return *this;
     }
 
-    Terminal& Terminal::init_color(int i, int color, int bg_color) {
+    Terminal &Terminal::init_color(int i, int color, int bg_color) {
         ::init_pair(i, color, bg_color);
         return *this;
     }

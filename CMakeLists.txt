@@ -81,4 +81,4 @@ add_executable(House_Simulator main.cpp
         exceptions/nameAlreadyExists.h
         exceptions/nameNotFound.h
 )
-target_link_libraries(House_Simulator -lncursesw)
+target_link_libraries(${PROJECT_NAME} C:/Users/guilh/Documents/GitHub/House-Simulator/pdcurses.a)
