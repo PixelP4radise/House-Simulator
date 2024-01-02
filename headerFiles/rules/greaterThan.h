@@ -13,6 +13,7 @@ public:
 
     greaterThan(const greaterThan &source);
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~greaterThan() override = default;

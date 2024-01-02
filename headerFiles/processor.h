@@ -49,7 +49,8 @@ public:
 
     void setCommand(const std::string &newCommand);
 
-    void showRules();
+    [[nodiscard]]
+    std::string showRules();
 
     void associateDevice(const std::shared_ptr<devices> &toBeAsoc);
 

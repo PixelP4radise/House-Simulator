@@ -16,6 +16,7 @@ public:
 
     outsideOf(const outsideOf &source);
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~outsideOf() override = default;

@@ -10,6 +10,8 @@
 class radiation : public property {
 public:
     radiation();
+
+    ~radiation() override = default;
 };
 
 

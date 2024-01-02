@@ -10,6 +10,8 @@
 class sound : public property {
 public:
     sound();
+
+    ~sound() override = default;
 };
 
 

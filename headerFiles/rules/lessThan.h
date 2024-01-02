@@ -13,6 +13,7 @@ public:
 
     lessThan(const lessThan &source);
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~lessThan() override = default;

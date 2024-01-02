@@ -9,6 +9,7 @@
 #include <memory>
 #include <map>
 #include <algorithm>
+#include "Terminal.h"
 #include "houseElements.h"
 #include"./sensors/humiditySensor.h"
 #include"./sensors/luminositySensor.h"
@@ -39,14 +40,20 @@
 class room : public houseElements {
 private:
     unsigned int nLines, nCollums;
+    std::unique_ptr<term::Window> window;
     std::vector<std::shared_ptr<sensor>> vectorSensors; //sensors for light, smoke, humidity, luminosity, vibration, radiation, sound, temperature
     std::vector<std::shared_ptr<devices>> vectorDevices; // contains fridges, heaters, lamps, sprinklers
     std::vector<std::shared_ptr<processor>> vectorProcessors;
     std::map<std::string, std::shared_ptr<property>> roomPropertys;
 public:
-    room(unsigned int nLines, unsigned int nCollumns);
+    room(unsigned int nLines, unsigned int nCollumns, std::unique_ptr<term::Window> janela);
 
     ~room() override = default;
+
+    [[nodiscard]]
+    std::unique_ptr<term::Window> getWindow();
+
+    void updateWindow() const;
 
     [[nodiscard]]
     unsigned int getNLines() const;
@@ -96,7 +103,8 @@ public:
 
     void changeCommandFromProcessor(const std::string &idProcessor, const std::string &newCommand) const;
 
-    void showRulesFrom(const std::string &idProcessor) const;
+    [[nodiscard]]
+    std::string showRulesFrom(const std::string &idProcessor) const;
 
     void asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) const;
 

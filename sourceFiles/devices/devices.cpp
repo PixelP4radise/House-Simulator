@@ -10,7 +10,7 @@ devices::devices(std::string command) : command(std::move(command)), ticksSinceL
 }
 
 std::string devices::getId() const {
-    return "d" + std::to_string(getNum());
+    return 'd' + std::to_string(getNum());
 }
 
 std::string devices::getCommand() const {

@@ -84,5 +84,7 @@ add_executable(House_Simulator main.cpp
         headerFiles/app.h
         sourceFiles/Terminal.cpp
         exceptions/commandNotFound.h
+        exceptions/fileNotOpened.h
+        exceptions/houseNotCreated.h
 )
 target_link_libraries(${PROJECT_NAME} C:/Users/guilh/Documents/GitHub/House-Simulator/pdcurses.a)

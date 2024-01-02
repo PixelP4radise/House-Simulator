@@ -16,7 +16,7 @@ private:
 public:
     explicit property(int min, int max = INT_MAX, int value = 0);
 
-    ~property() = default;
+    virtual ~property() = default;
 
     [[nodiscard]]
     int getValue() const;

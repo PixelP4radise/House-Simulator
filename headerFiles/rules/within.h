@@ -15,6 +15,7 @@ public:
 
     within(const within &source);
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~within() override = default;

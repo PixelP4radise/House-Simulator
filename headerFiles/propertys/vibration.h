@@ -10,6 +10,8 @@
 class vibration : public property {
 public:
     vibration();
+
+    ~vibration() override = default;
 };
 
 

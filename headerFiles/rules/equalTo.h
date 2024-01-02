@@ -13,6 +13,7 @@ public:
 
     equalTo(const equalTo &source);
 
+    [[nodiscard]]
     std::unique_ptr<rule> clone() const override;
 
     ~equalTo() override = default;
