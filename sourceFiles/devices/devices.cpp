@@ -4,13 +4,13 @@
 
 #include "../../headerFiles/devices/devices.h"
 
-devices::devices(std::string command) : command(std::move(command)), ticksSinceLastCommand(0) {
+devices::devices(std::string command) : command(std::move(command)), ticksSinceLastCommand(6) {
     static unsigned int counter{};
     num = counter++;
 }
 
 std::string devices::getId() const {
-    return "d" + std::to_string(getNum());
+    return 'd' + std::to_string(getNum());
 }
 
 std::string devices::getCommand() const {
@@ -21,7 +21,7 @@ unsigned int devices::getTicksSinceLastCommand() const {
     return ticksSinceLastCommand;
 }
 
-void devices::incticksSinceLastCommand() {
+void devices::incTicksSinceLastCommand() {
     ++ticksSinceLastCommand;
 }
 

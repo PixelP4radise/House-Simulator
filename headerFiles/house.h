@@ -10,6 +10,7 @@
 #include <iostream>
 #include <algorithm>
 #include "room.h"
+#include "Terminal.h"
 #include "../exceptions/positionOcuppied.h"
 #include "../exceptions/roomNotFound.h"
 #include "../exceptions/invalidPosition.h"
@@ -21,6 +22,7 @@ class house {
 private:
     std::map<std::string, std::unique_ptr<processor>> processorMemory;
     std::vector<std::unique_ptr<room>> houseRooms;
+    std::vector<std::unique_ptr<term::Window>> roomWindows;
     unsigned int nLines, nCollums;
 public:
     explicit house(unsigned int nLines = 2,
@@ -31,8 +33,6 @@ public:
     void newRoom(unsigned int roomNlines, unsigned int roomNCollums);
 
     void deleteRoom(const std::string &id);
-
-    void listRooms() const;
 
     [[nodiscard]]
     unsigned int getNLines() const;
@@ -72,7 +72,8 @@ public:
     void changeCommandFromProcessor(const std::string &idRoom, const std::string &idProcessor,
                                     const std::string &newCommand) const;
 
-    void showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const;
+    [[nodiscard]]
+    std::string showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const;
 
     void
     associateDeviceToProcessor(const std::string &idRoom, const std::string &idProcessor,
@@ -93,7 +94,8 @@ public:
 
     void removeProcessorFromMemory(const std::string &name);
 
-    void showProcessorsFromMemory() const;
+    [[nodiscard]]
+    std::string showProcessorsFromMemory() const;
 
     void carryOut() const;
 };

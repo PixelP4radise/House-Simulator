@@ -4,7 +4,8 @@
 
 #include "../headerFiles/room.h"
 
-room::room(unsigned int nLines, unsigned int nCollumns) : nLines(nLines), nCollums(nCollumns) {
+room::room(unsigned int nLines, unsigned int nCollumns, std::unique_ptr<term::Window> _window)
+        : nLines(nLines), nCollums(nCollumns), window(std::move(_window)) {
     static unsigned int counter{};
     num = counter++;
 
@@ -15,6 +16,11 @@ room::room(unsigned int nLines, unsigned int nCollumns) : nLines(nLines), nCollu
     roomPropertys["humidity"] = std::make_shared<humidity>();
     roomPropertys["smoke"] = std::make_shared<smoke>();
     roomPropertys["sound"] = std::make_shared<sound>();
+    updateWindow();
+}
+
+std::unique_ptr<term::Window> room::getWindow() {
+    return std::move(window);
 }
 
 unsigned int room::getNLines() const {
@@ -45,8 +51,12 @@ std::string room::describe() const {
     std::string description{};
     for (auto &sensor: vectorSensors)
         description += sensor->describe() + '\n';
-    for (auto &device: vectorDevices)
-        description += device->describe() + '\n';
+    for (auto &device: vectorDevices) {
+        auto deviceDescription = device->describe();
+        if (device->getCommand() == "on")
+            deviceDescription[0] = 'D';
+        description += deviceDescription + '\n';
+    }
     for (auto &processor: vectorProcessors)
         description += processor->describe() + '\n';
     return description;
@@ -55,78 +65,64 @@ std::string room::describe() const {
 void room::addProcessor(std::string command) {
     std::shared_ptr<processor> ptr = std::make_shared<processor>(std::move(command), getId());
     vectorProcessors.push_back(std::move(ptr));
+    updateWindow();
 }
 
 void room::removeProcessor(const std::string &idProcessor) {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        vectorProcessors.erase(processorIt);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processorIt = findProcessorItById(idProcessor);
+    vectorProcessors.erase(processorIt);
+    updateWindow();
 }
 
 void room::addSensor(const std::string &property) {
-    try {
-        std::shared_ptr<sensor> ptr{};
-        if (property == "humidity")
-            ptr = std::make_shared<humiditySensor>(roomPropertys.at("humidity"));
-        else if (property == "luminosity")
-            ptr = std::make_shared<luminositySensor>(roomPropertys.at("light"));
-        else if (property == "vibration")
-            ptr = std::make_shared<movementSensor>(roomPropertys.at("vibration"));
-        else if (property == "radiation")
-            ptr = std::make_shared<radiationSensor>(roomPropertys.at("radiation"));
-        else if (property == "smoke")
-            ptr = std::make_shared<smokeSensor>(roomPropertys.at("smoke"));
-        else if (property == "sound")
-            ptr = std::make_shared<soundSensor>(roomPropertys.at("sound"));
-        else if (property == "temperature")
-            ptr = std::make_shared<temperatureSensor>(roomPropertys.at("temperature"));
-        else
-            throw invalidSensorType();
-        vectorSensors.push_back(std::move(ptr));
-    } catch (const invalidSensorType &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    std::shared_ptr<sensor> ptr{};
+    if (property == "humidity")
+        ptr = std::make_shared<humiditySensor>(roomPropertys.at("humidity"));
+    else if (property == "luminosity")
+        ptr = std::make_shared<luminositySensor>(roomPropertys.at("light"));
+    else if (property == "vibration")
+        ptr = std::make_shared<movementSensor>(roomPropertys.at("vibration"));
+    else if (property == "radiation")
+        ptr = std::make_shared<radiationSensor>(roomPropertys.at("radiation"));
+    else if (property == "smoke")
+        ptr = std::make_shared<smokeSensor>(roomPropertys.at("smoke"));
+    else if (property == "sound")
+        ptr = std::make_shared<soundSensor>(roomPropertys.at("sound"));
+    else if (property == "temperature")
+        ptr = std::make_shared<temperatureSensor>(roomPropertys.at("temperature"));
+    else
+        throw invalidSensorType();
+    vectorSensors.push_back(std::move(ptr));
+    updateWindow();
 }
 
 void room::removeSensor(const std::string &idSensor) {
-    try {
-        auto sensorIt = findSensorItById(idSensor);
-        vectorSensors.erase(sensorIt);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto sensorIt = findSensorItById(idSensor);
+    vectorSensors.erase(sensorIt);
+    updateWindow();
 }
 
 void room::addDevice(const std::string &device) {
-    try {
-        std::shared_ptr<devices> ptr{};
-        if (device == "heater")
-            ptr = std::make_shared<heater>(roomPropertys.at("temperature"), roomPropertys.at("sound"));
-        else if (device == "lamp")
-            ptr = std::make_shared<lamp>(roomPropertys.at("light"));
-        else if (device == "cooler")
-            ptr = std::make_shared<cooler>(roomPropertys.at("temperature"), roomPropertys.at("sound"));
-        else if (device == "sprinkler")
-            ptr = std::make_shared<sprinkler>(roomPropertys.at("humidity"), roomPropertys.at("vibration"),
-                                              roomPropertys.at("smoke"));
-        else
-            throw invalidDeviceType();
-        vectorDevices.push_back(std::move(ptr));
-    } catch (const invalidDeviceType &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    std::shared_ptr<devices> ptr{};
+    if (device == "heater")
+        ptr = std::make_shared<heater>(roomPropertys.at("temperature"), roomPropertys.at("sound"));
+    else if (device == "lamp")
+        ptr = std::make_shared<lamp>(roomPropertys.at("light"));
+    else if (device == "cooler")
+        ptr = std::make_shared<cooler>(roomPropertys.at("temperature"), roomPropertys.at("sound"));
+    else if (device == "sprinkler")
+        ptr = std::make_shared<sprinkler>(roomPropertys.at("humidity"), roomPropertys.at("vibration"),
+                                          roomPropertys.at("smoke"));
+    else
+        throw invalidDeviceType();
+    vectorDevices.push_back(std::move(ptr));
+    updateWindow();
 }
 
 void room::removeDevice(const std::string &idDevice) {
-    try {
-        auto deviceIt = findDeviceItById(idDevice);
-        vectorDevices.erase(deviceIt);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto deviceIt = findDeviceItById(idDevice);
+    vectorDevices.erase(deviceIt);
+    updateWindow();
 }
 
 std::string room::showPropertys() const {
@@ -144,96 +140,60 @@ void room::changeProperty(const std::string &propertyTobeChanged, int valueToBe)
 void
 room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type,
               int parameter1) const {
-    try {
-        auto processadorIt = findProcessorItById(idProcessor);
-        auto sensorIt = findSensorItById(idSensor);
-        auto &processor = *processadorIt;
-        auto &sensor = *sensorIt;
-        processor->addRule(sensor, type, parameter1);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const sensorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processadorIt = findProcessorItById(idProcessor);
+    auto sensorIt = findSensorItById(idSensor);
+    auto &processor = *processadorIt;
+    auto &sensor = *sensorIt;
+    processor->addRule(sensor, type, parameter1);
 }
 
 void room::addRule(const std::string &idProcessor, const std::string &idSensor, const std::string &type, int parameter1,
                    int parameter2) const {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        auto sensorIt = findSensorItById(idSensor);
-        auto &processor = *processorIt;
-        auto &sensor = *sensorIt;
-        processor->addRule(sensor, type, parameter1, parameter2);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const sensorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processorIt = findProcessorItById(idProcessor);
+    auto sensorIt = findSensorItById(idSensor);
+    auto &processor = *processorIt;
+    auto &sensor = *sensorIt;
+    processor->addRule(sensor, type, parameter1, parameter2);
 }
 
 void room::removeRuleFrom(const std::string &idProcessor, const std::string &idRule) const {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        auto &processor = *processorIt;
-        processor->removeRule(idRule);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processorIt = findProcessorItById(idProcessor);
+    auto &processor = *processorIt;
+    processor->removeRule(idRule);
 }
 
 void room::changeCommandFromProcessor(const std::string &idProcessor, const std::string &newCommand) const {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        auto &processor = *processorIt;
-        processor->setCommand(newCommand);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processorIt = findProcessorItById(idProcessor);
+    auto &processor = *processorIt;
+    processor->setCommand(newCommand);
 }
 
-void room::showRulesFrom(const std::string &idProcessor) const {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        auto &processor = *processorIt;
-        processor->showRules();
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+std::string room::showRulesFrom(const std::string &idProcessor) const {
+    std::string description{};
+    auto processorIt = findProcessorItById(idProcessor);
+    auto &processor = *processorIt;
+    description += processor->showRules();
+    return description;
 }
 
 void room::asocDeviceToProcessor(const std::string &idProcessor, const std::string &idDevice) const {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        auto deviceIt = findDeviceItById(idDevice);
-        auto &processor = *processorIt;
-        auto &device = *deviceIt;
-        processor->associateDevice(device);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const deviceNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processorIt = findProcessorItById(idProcessor);
+    auto deviceIt = findDeviceItById(idDevice);
+    auto &processor = *processorIt;
+    auto &device = *deviceIt;
+    processor->associateDevice(device);
 }
 
 void room::disaDeviceFromProcessor(const std::string &idProcessor, const std::string &idDevice) const {
-    try {
-        auto processorIt = findProcessorItById(idProcessor);
-        auto &processor = *processorIt;
-        processor->disassociateDevice(idDevice);
-    } catch (const processorNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto processorIt = findProcessorItById(idProcessor);
+    auto &processor = *processorIt;
+    processor->disassociateDevice(idDevice);
 }
 
 void room::sendCommandToDevice(const std::string &idDevice, const std::string &newCommand) const {
-    try {
-        auto deviceIt = findDeviceItById(idDevice);
-        auto &device = *deviceIt;
-        device->setCommand(newCommand);
-    } catch (const deviceNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto deviceIt = findDeviceItById(idDevice);
+    auto &device = *deviceIt;
+    device->setCommand(newCommand);
 }
 
 std::vector<std::shared_ptr<sensor>>::const_iterator room::findSensorItById(const std::string &idSensor) const {
@@ -275,6 +235,7 @@ void room::restoreProcessor(const processor &toBeRestored) {
     } catch (const processorNotFound &ex) {
     }
     vectorProcessors.push_back(std::make_shared<processor>(toBeRestored));
+    updateWindow();
 }
 
 void room::carryOut() const {
@@ -282,4 +243,22 @@ void room::carryOut() const {
         processorPtr->carryOut();
     for (auto &devicePtr: vectorDevices)
         devicePtr->carryOut();
+    updateWindow();
+}
+
+void room::updateWindow() const {
+    window->clear();
+    std::string description{};
+    description += getId() + '\n';
+    for (auto &processorPtr: vectorProcessors)
+        description += processorPtr->getId() + ' ';
+    for (auto &devicePtr: vectorDevices) {
+        auto deviceId = devicePtr->getId();
+        if (devicePtr->getCommand() == "on")
+            deviceId[0] = 'D';
+        description += deviceId + ' ';
+    }
+    for (auto &sensorPtr: vectorSensors)
+        description += sensorPtr->getId() + ' ';
+    *window << description;
 }

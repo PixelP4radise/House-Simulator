@@ -19,7 +19,7 @@ void heater::carryOut() {
         if (getCommand() == "on") {
             if (getTicksSinceLastCommand() == 0)
                 soundPtr->setValue(soundPtr->getValue() + 5);
-            if (getTicksSinceLastCommand() % 3 == 0 and getTicksSinceLastCommand() != 0) {
+            if ((getTicksSinceLastCommand() + 1) % 3 == 0) {
                 auto temperatureValue = tempPtr->getValue();
                 temperatureValue++;
                 if (temperatureValue > 50)
@@ -31,6 +31,6 @@ void heater::carryOut() {
             if (getTicksSinceLastCommand() == 0)
                 soundPtr->setValue(soundPtr->getValue() - 5);
         }
-        incticksSinceLastCommand();
+        incTicksSinceLastCommand();
     }
 }

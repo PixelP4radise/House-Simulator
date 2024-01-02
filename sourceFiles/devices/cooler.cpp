@@ -19,14 +19,13 @@ void cooler::carryOut() {
         if (getCommand() == "on") {
             if (getTicksSinceLastCommand() == 0)
                 soundPtr->setValue(soundPtr->getValue() + 20);
-            if (getTicksSinceLastCommand() % 3 == 0)
+            if ((getTicksSinceLastCommand() + 1) % 3 == 0)
                 tempPtr->setValue(tempPtr->getValue() + 1);
-        }
-        if (getCommand() == "off") {
+        } else if (getCommand() == "off") {
             if (getTicksSinceLastCommand() == 0) {
                 soundPtr->setValue(soundPtr->getValue() - 20);
             }
         }
-        incticksSinceLastCommand();
+        incTicksSinceLastCommand();
     }
 }

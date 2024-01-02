@@ -19,11 +19,7 @@ int property::getMin() const {
 }
 
 void property::setValue(int valueToBe) {
-    try {
-        if (valueToBe > getMax() or valueToBe < getMin())
-            throw outOfRangeProperty();
-        value = valueToBe;
-    } catch (const outOfRangeProperty &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    if (valueToBe > getMax() or valueToBe < getMin())
+        throw outOfRangeProperty();
+    value = valueToBe;
 }

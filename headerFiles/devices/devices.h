@@ -30,7 +30,7 @@ public:
     [[nodiscard]]
     unsigned int getTicksSinceLastCommand() const;
 
-    void incticksSinceLastCommand();
+    void incTicksSinceLastCommand();
 
     void zeroTicksSinceLastCommand();
 

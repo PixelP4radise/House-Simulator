@@ -4,43 +4,46 @@
 
 #include "../headerFiles/house.h"
 
-house::house(unsigned int nLines, unsigned int nCollums) : nLines(nLines), nCollums(nCollums) {}
+house::house(unsigned int nLines, unsigned int nCollums) : nLines(nLines), nCollums(nCollums) {
+    roomWindows.push_back(std::make_unique<term::Window>(62, 10, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(112, 10, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(162, 10, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(212, 10, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(62, 22, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(112, 22, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(162, 22, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(212, 22, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(62, 34, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(112, 34, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(162, 34, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(212, 34, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(62, 46, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(112, 46, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(162, 46, 25, 6, true));
+    roomWindows.push_back(std::make_unique<term::Window>(212, 46, 25, 6, true));
+}
 
 void house::newRoom(unsigned int roomNlines, unsigned int roomNCollums) {
-    try {
-        for (auto &room: houseRooms)
-            if (room->getNLines() == roomNlines)
-                if (room->getNCollums() == roomNCollums)
-                    throw positionOcuppied();
-        if (roomNlines > getNLines() or roomNCollums > getNCollums())
-            throw invalidPosition();
-        std::unique_ptr<room> ptr = std::make_unique<room>(roomNlines, roomNCollums);
-        houseRooms.push_back(std::move(ptr));
-    } catch (const std::bad_alloc &ex) {
-        std::cout << "Couldn't allocate." << std::endl;
-    } catch (const positionOcuppied &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const invalidPosition &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    for (auto &room: houseRooms)
+        if (room->getNLines() == roomNlines)
+            if (room->getNCollums() == roomNCollums)
+                throw positionOcuppied();
+    if (roomNlines > getNLines() or roomNCollums > getNCollums())
+        throw invalidPosition();
+    auto firstWindowIt = roomWindows.begin();
+    auto &firstWindowPtr = *firstWindowIt;
+    std::unique_ptr<room> ptr = std::make_unique<room>(roomNlines, roomNCollums, std::move(firstWindowPtr));
+    roomWindows.erase(firstWindowIt);
+    houseRooms.push_back(std::move(ptr));
 }
 
 void house::deleteRoom(const std::string &id) {
-    auto it = std::find_if(houseRooms.begin(), houseRooms.end(), [id](const auto &obj) { return obj->getId() == id; });
-    try {
-        if (it != houseRooms.end()) {
-            houseRooms.erase(it);
-        } else {
-            throw roomNotFound();
-        }
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
-}
-
-void house::listRooms() const {
-    for (auto &room: houseRooms) {
-        std::cout << room->getId() << std::endl;
+    auto it = findRoomItByID(id);
+    auto &roomPtr = *it;
+    roomWindows.push_back(roomPtr->getWindow());
+    houseRooms.erase(it);
+    for (auto &window: roomWindows) {
+        window->clear();
     }
 }
 
@@ -53,165 +56,111 @@ unsigned int house::getNCollums() const {
 }
 
 void house::newComponent(const std::string &idRoom, char type, const std::string &command) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        if (type == 's') {
-            foundRoom->addSensor(command);
-        } else if (type == 'p') {
-            foundRoom->addProcessor(command);
-        } else if (type == 'd') {
-            foundRoom->addDevice(command);
-        } else {
-            throw invalidDeviceType();
-        }
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const invalidDeviceType &ex) {
-        std::cout << ex.what() << std::endl;
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    if (type == 's') {
+        foundRoom->addSensor(command);
+    } else if (type == 'p') {
+        foundRoom->addProcessor(command);
+    } else if (type == 'd') {
+        foundRoom->addDevice(command);
+    } else {
+        throw invalidDeviceType();
     }
 }
 
 void house::removeComponent(const std::string &idRoom, char type, const std::string &idComponent) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        if (type == 's')
-            foundRoom->removeSensor(idComponent);
-        else if (type == 'p')
-            foundRoom->removeProcessor(idComponent);
-        else if (type == 'd')
-            foundRoom->removeDevice(idComponent);
-        else
-            throw invalidDeviceType();
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const invalidDeviceType &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    if (type == 's')
+        foundRoom->removeSensor(idComponent);
+    else if (type == 'p')
+        foundRoom->removeProcessor(idComponent);
+    else if (type == 'd')
+        foundRoom->removeDevice(idComponent);
+    else
+        throw invalidDeviceType();
 }
 
 std::string house::describeRoom(const std::string &idRoom) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        return foundRoom->describe();
-    } catch (const roomNotFound &ex) {
-        return ex.what();
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    return foundRoom->describe();
 }
 
 std::string house::showPropertysOfRoom(const std::string &idRoom) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        return foundRoom->showPropertys();
-    } catch (const roomNotFound &ex) {
-        return ex.what();
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    return foundRoom->showPropertys();
 }
 
 void
 house::changePropertyOfRoom(const std::string &idRoom, const std::string &propertyTobeChanged, int valueToBe) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->changeProperty(propertyTobeChanged, valueToBe);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    foundRoom->changeProperty(propertyTobeChanged, valueToBe);
 }
 
 void
 house::addRule(const std::string &idRoom, const std::string &idProcessor, const std::string &idSensor,
                const std::string &type, int parameter1) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->addRule(idProcessor, idSensor, type, parameter1);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    foundRoom->addRule(idProcessor, idSensor, type, parameter1);
 }
 
 void
 house::addRule(const std::string &idRoom, const std::string &idProcessor, const std::string &idSensor,
                const std::string &type, int parameter1,
                int parameter2) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->addRule(idProcessor, idSensor, type, parameter1, parameter2);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    foundRoom->addRule(idProcessor, idSensor, type, parameter1, parameter2);
 }
 
 void house::removeRuleFrom(const std::string &idRoom, const std::string &idProcessor, const std::string &idRule) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->removeRuleFrom(idProcessor, idRule);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    foundRoom->removeRuleFrom(idProcessor, idRule);
 }
 
 void
 house::changeCommandFromProcessor(const std::string &idRoom, const std::string &idProcessor,
                                   const std::string &newCommand) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->changeCommandFromProcessor(idProcessor, newCommand);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    foundRoom->changeCommandFromProcessor(idProcessor, newCommand);
 }
 
-void house::showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->showRulesFrom(idProcessor);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+std::string house::showRulesFrom(const std::string &idRoom, const std::string &idProcessor) const {
+    std::string description{};
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    description += foundRoom->showRulesFrom(idProcessor);
+    return description;
 }
 
 void
 house::associateDeviceToProcessor(const std::string &idRoom, const std::string &idProcessor,
                                   const std::string &idDevice) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        foundRoom->asocDeviceToProcessor(idProcessor, idDevice);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    foundRoom->asocDeviceToProcessor(idProcessor, idDevice);
 }
 
 void
 house::disaDeviceFromProcessor(const std::string &idRoom, const std::string &idProcessor,
                                const std::string &idDevice) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundroom = *roomIt;
-        foundroom->disaDeviceFromProcessor(idProcessor, idDevice);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundroom = *roomIt;
+    foundroom->disaDeviceFromProcessor(idProcessor, idDevice);
 }
 
 void house::sendCommandToDevice(const std::string &idRoom, const std::string &idDevice,
                                 const std::string &newCommand) const {
-    try {
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundroom = *roomIt;
-        foundroom->sendCommandToDevice(idDevice, newCommand);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundroom = *roomIt;
+    foundroom->sendCommandToDevice(idDevice, newCommand);
 }
 
 std::vector<std::unique_ptr<room>>::const_iterator house::findRoomItByID(const std::string &idRoom) const {
@@ -223,55 +172,41 @@ std::vector<std::unique_ptr<room>>::const_iterator house::findRoomItByID(const s
 }
 
 void house::saveProcessor(const std::string &idRoom, const std::string &idProcessor, const std::string &name) {
-    try {
-        if (not processorMemory.empty()) {
-            auto nameIt = processorMemory.find(name);
-            if (nameIt != processorMemory.end())
-                throw nameAlreadyExists();
-        }
-        auto roomIt = findRoomItByID(idRoom);
-        auto &foundRoom = *roomIt;
-        processorMemory[name] = foundRoom->copyProcessor(idProcessor);
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    } catch (const nameAlreadyExists &ex) {
-        std::cout << ex.what() << std::endl;
+    if (!processorMemory.empty()) {
+        auto nameIt = processorMemory.find(name);
+        if (nameIt != processorMemory.end())
+            throw nameAlreadyExists();
     }
+    auto roomIt = findRoomItByID(idRoom);
+    auto &foundRoom = *roomIt;
+    processorMemory[name] = foundRoom->copyProcessor(idProcessor);
 }
 
 void house::restoreProcessor(const std::string &name) {
-    try {
-        auto nameIt = processorMemory.find(name);
-        if (nameIt != processorMemory.end()) {
-            //if it finds the name
-            auto roomToBeFound = processorMemory[name]->getRoomId();
-            auto roomIt = findRoomItByID(roomToBeFound);
-            //if it finds the rooms
-            auto &foundRoom = *roomIt;
-            foundRoom->restoreProcessor(*processorMemory[name]);
-        }
-    } catch (const roomNotFound &ex) {
-        std::cout << ex.what() << std::endl;
+    auto nameIt = processorMemory.find(name);
+    if (nameIt != processorMemory.end()) {
+        //if it finds the name
+        auto roomToBeFound = processorMemory[name]->getRoomId();
+        auto roomIt = findRoomItByID(roomToBeFound);
+        //if it finds the rooms
+        auto &foundRoom = *roomIt;
+        foundRoom->restoreProcessor(*processorMemory[name]);
     }
 }
 
 void house::removeProcessorFromMemory(const std::string &name) {
-    try {
-        auto nameIt = processorMemory.find(name);
-        if (nameIt == processorMemory.end())
-            throw nameNotFound();
-        processorMemory.erase(nameIt);
-    } catch (const nameNotFound &ex) {
-        std::cout << ex.what() << std::endl;
-    }
+    auto nameIt = processorMemory.find(name);
+    if (nameIt == processorMemory.end())
+        throw nameNotFound();
+    processorMemory.erase(nameIt);
 }
 
-void house::showProcessorsFromMemory() const {
+std::string house::showProcessorsFromMemory() const {
     std::string description{};
     for (const auto &[key, value]: processorMemory) {
         description += key + ' ' + value->getId() + ' ' + value->getRoomId() + '\n';
     }
-    std::cout << description << std::endl;
+    return description;
 }
 
 std::string house::describeHouse() const {

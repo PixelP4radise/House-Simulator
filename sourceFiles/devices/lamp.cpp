@@ -23,6 +23,6 @@ void lamp::carryOut() {
                 lumPtr->setValue(lumPtr->getValue() - 900);
             }
         }
-        incticksSinceLastCommand();
+        incTicksSinceLastCommand();
     }
 }
