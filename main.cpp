@@ -1,5 +1,5 @@
-#include "headerFiles/house.h"
-#include "headerFiles/app.h"
+#include "house/house.h"
+#include "app/app.h"
 
 int main() {
     term::Terminal &t = term::Terminal::instance();

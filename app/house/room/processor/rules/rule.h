@@ -6,7 +6,7 @@
 #define HOUSE_SIMULATOR_RULE_H
 
 #include <memory>
-#include "../houseElements.h"
+#include "../../house/houseElements.h"
 #include "../sensors/humiditySensor.h"
 #include "../sensors/luminositySensor.h"
 #include "../sensors/movementSensor.h"

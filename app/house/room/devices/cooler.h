@@ -5,7 +5,7 @@
 #ifndef HOUSE_SIMULATOR_COOLER_H
 #define HOUSE_SIMULATOR_COOLER_H
 
-#include "devices.h"
+#include "../../../headerFiles/devices/devices.h"
 
 class cooler : public devices {
 private:

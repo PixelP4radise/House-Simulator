@@ -2,7 +2,7 @@
 // Created by guilh on 28/12/2023.
 //
 
-#include "../headerFiles/house.h"
+#include "house.h"
 
 house::house(unsigned int nLines, unsigned int nCollums) : nLines(nLines), nCollums(nCollums) {
     roomWindows.push_back(std::make_unique<term::Window>(62, 10, 25, 6, true));

@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
-#include "./houseElements.h"
+#include "../house/houseElements.h"
 #include "./devices/devices.h"
 #include "./rules/equalTo.h"
 #include "./rules/greaterThan.h"

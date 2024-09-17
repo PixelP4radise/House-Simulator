@@ -2,7 +2,7 @@
 // Created by guilh on 01/01/2024.
 //
 #include <iostream>
-#include "../headerFiles/app.h"
+#include "app.h"
 
 using namespace term;
 

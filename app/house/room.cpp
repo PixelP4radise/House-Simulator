@@ -2,7 +2,7 @@
 // Created by guilh on 28/12/2023.
 //
 
-#include "../headerFiles/room.h"
+#include "room.h"
 
 room::room(unsigned int nLines, unsigned int nCollumns, std::unique_ptr<term::Window> _window)
         : nLines(nLines), nCollums(nCollumns), window(std::move(_window)) {

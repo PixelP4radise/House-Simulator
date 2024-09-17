@@ -5,7 +5,7 @@
 #ifndef HOUSE_SIMULATOR_RADIATIONSENSOR_H
 #define HOUSE_SIMULATOR_RADIATIONSENSOR_H
 
-#include "sensor.h"
+#include "../../../headerFiles/sensors/sensor.h"
 
 class radiationSensor : public sensor {
 private:

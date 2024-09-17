@@ -11,7 +11,7 @@
 #include <sstream>
 #include <fstream>
 #include "Terminal.h"
-#include "house.h"
+#include "../house/house.h"
 #include "../exceptions/commandNotFound.h"
 #include "../exceptions/fileNotOpened.h"
 #include "../exceptions/houseNotCreated.h"

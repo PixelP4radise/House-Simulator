@@ -5,7 +5,7 @@
 #ifndef HOUSE_SIMULATOR_SENSOR_H
 #define HOUSE_SIMULATOR_SENSOR_H
 
-#include "../houseElements.h"
+#include "../../houseElements.h"
 #include "../propertys/humidity.h"
 #include "../propertys/luminosity.h"
 #include "../propertys/radiation.h"
@@ -13,7 +13,7 @@
 #include "../propertys/sound.h"
 #include "../propertys/temperature.h"
 #include "../propertys/vibration.h"
-#include "../../exceptions/acessError.h"
+#include "../../../exceptions/acessError.h"
 
 class sensor : public houseElements {
 private:
